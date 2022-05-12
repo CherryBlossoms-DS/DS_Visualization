@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+
+    <style>
+        canvas {
+            border: 1px solid black;
+
+        }
+
+        #insert {
+            margin-top: 30px;
+        }
+
+    </style>
+
+    <script src="index.js"></script>
+
+</head>
+
+<body onload="init()">
+    Insert: <input id="insert" placeholder="value&lt;10000" type="text">
+    <button onclick="insert()">OK</button></input>
+
+    Delete: <input id="delete" placeholder="index" type="text">
+    <button onclick="remove()">OK</button></input>
+
+    Search: <input id="search" placeholder="value" type="text">
+    <button onclick="search()">OK</button></input>
+
+    <br><br>
+    <canvas id="canvas" height="1000" width="1000"></canvas>
+
+</body>
+
+</html>
