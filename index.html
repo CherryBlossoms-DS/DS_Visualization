@@ -6,11 +6,14 @@
                 border: 1px solid black;
             }
         </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body>
         <img src="http://www.google-analytics.com/collect?v=1&tid=UA-186810924-1&t=event&cid=2&&cs=page&ec=이진탐색트리&ea=access" alt="" width="1" height="1">
-        <input type="text" id="input_field">
-        <input type="button" value="sumit" onclick="makeCircle()"> <br><br>
+        <form id="input_form">
+            <input type="text" id="input_field">
+            <input id="insert_btn" type="button" value="sumit" onclick="makeCircle()">
+        </form><br>
         <canvas id="tutorial" width="1000" height="600"></canvas>
     </body>
 </html>
