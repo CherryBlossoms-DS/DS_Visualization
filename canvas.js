@@ -13,6 +13,7 @@ function ctx_clear() {
 }
 
 let animation_time = 750;
+let is_run_animation = false;
 // TODO : 애니메이션 도중이 아닐 때, 마우스로 조작 가능하도록 해야함.
 
 class Circle {
@@ -137,6 +138,7 @@ class Circle {
         setTimeout(call_draw_text, animation_time * (cnt - 1), pre_node);
         setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
         setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');
+        setTimeout(run_animation, animation_time * cnt, pre_node);
     }
 
     Draw() {
@@ -144,7 +146,15 @@ class Circle {
 
         get_position(root_node, this);
         this.append_animation();
+        run_animation();
     }
+}
+
+function run_animation() {
+    is_run_animation = !is_run_animation;
+    
+    // document.getElementById('insert_btn').disabled = ;
+    $('#input_form input').attr('disabled', is_run_animation);
 }
 
 function call_draw_text(node) {
@@ -227,8 +237,9 @@ let root_node;
 var running = false;
 var x, y, clientX, clientY;
 
+
 canvas.addEventListener('mousedown', function(e) {
-    if (!running) {
+    if (!is_run_animation && !running) {
         raf = window.requestAnimationFrame(root_node.Draw);
         running = true;
 
@@ -244,7 +255,7 @@ canvas.addEventListener('mousedown', function(e) {
 canvas.addEventListener('mouseup', move_tree);
 canvas.addEventListener('mouseout', move_tree);
 function move_tree(e) {
-    if (running) {
+    if (!is_run_animation && running) {
         window.cancelAnimationFrame(raf);
         running = false;
 
@@ -268,7 +279,7 @@ function move_tree(e) {
 };
 
 canvas.addEventListener('mousemove', function(e) {
-    if (running) {
+    if (!is_run_animation && running) {
         root_node.x = x + (e.clientX - clientX);
         root_node.y = y + (e.clientY - clientY);
         ctx_clear();
