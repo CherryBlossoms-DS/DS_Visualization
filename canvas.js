@@ -12,6 +12,9 @@ function ctx_clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+let animation_time = 750;
+// TODO : 애니메이션 도중이 아닐 때, 마우스로 조작 가능하도록 해야함.
+
 class Circle {
     x;
     y;
@@ -22,6 +25,7 @@ class Circle {
     left_child;
     right_child;
     parent_node;
+    position;
 
     tree_generator() {
         // tree 위치 찾기
@@ -33,10 +37,12 @@ class Circle {
             previous_node = search_node;
 
             // 오른쪽 자식으로 이동
-            if (parseInt(this.text) > parseInt(search_node.text)) {                    
+            if (parseInt(this.text) > parseInt(search_node.text)) {       
+                this.position.push(1);
                 is_right_child = true;
                 search_node = search_node.right_child;
             } else { // 왼쪽 자식으로 이동
+                this.position.push(-1);
                 is_right_child = false;
                 search_node = search_node.left_child;
             }        
@@ -65,11 +71,12 @@ class Circle {
         this.left_child = null;
         this.right_child = null;
         this.parent_node = null;
+        this.position = [];
         
         this.tree_generator();
     }
 
-    Draw_line(r2) {
+    Draw_line(r2, color) {
         let distance = Math.sqrt(Math.pow(r2.y - this.y, 2) + Math.pow(r2.x - this.x, 2));
         let start_x = (this.radius * (r2.x - this.x)) / distance;
         let start_y = (this.radius * (r2.y - this.y)) / distance;        
@@ -78,17 +85,19 @@ class Circle {
         ctx.beginPath();
         ctx.moveTo(start_x + this.x, start_y + this.y);
         ctx.lineTo(r2.x - start_x, r2.y - start_y);
+
+        ctx.strokeStyle = color;
         ctx.stroke();
 
         // Todo : Draw_Arrow
     }
 
-    Draw_Circle() {
+    Draw_Circle(color) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
         ctx.closePath();
 
-        ctx.strokeStyle = this.color;
+        ctx.strokeStyle = color;
         ctx.stroke();
     }
 
@@ -97,18 +106,57 @@ class Circle {
         ctx.fillText(this.text, this.x, this.y);
     }
 
-    
+    append_animation() {
+        let parent_node = root_node;
+        let pre_node = null;
+
+        let cnt = 1;
+        while (parent_node != null) {
+            // 오른쪽 자식으로 이동
+        
+            setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'white');
+            setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'red');
+
+            if (pre_node != null) {
+                setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
+                setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');
+                setTimeout(call_draw_line, (animation_time * cnt) - (animation_time * 0.5), parent_node, pre_node, 'red');
+                setTimeout(call_draw_line, animation_time * cnt, parent_node, pre_node, 'black');
+            }
+            
+            pre_node = parent_node;
+            if (parseInt(this.text) > parseInt(parent_node.text)) {       
+                parent_node = parent_node.right_child;
+            } else { // 왼쪽 자식으로 이동
+                parent_node = parent_node.left_child;
+            }  
+
+            cnt++
+        }
+
+        setTimeout(call_draw_text, animation_time * (cnt - 1), pre_node);
+        setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
+        setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');
+    }
+
     Draw() {
         ctx_clear();
-        get_position(root_node);
-        // this.Draw_Circle();
-        // this.Draw_text();
-        
-        // if (this.parent_node) {
-        //     this.Draw_line(this.parent_node);
-        // }
-        // raf = window.requestAnimationFrame(Draw);
+
+        get_position(root_node, this);
+        this.append_animation();
     }
+}
+
+function call_draw_text(node) {
+    node.Draw_text();
+}
+
+function call_draw_Circle(node, color) {
+    node.Draw_Circle(color);
+}
+
+function call_draw_line(parent_node, child_node, color) {
+    child_node.Draw_line(parent_node, color);
 }
 
 // search_node 의 왼쪽 자식의 개수를 구하는 함수입니다.
@@ -121,21 +169,28 @@ function get_sub_tree_cnt(search_node) {
     return 1 + get_sub_tree_cnt(left_child) + get_sub_tree_cnt(right_child);
 }
 
-function get_position(parent_node) {
-    console.log("123");
+function get_position(parent_node, append_node) {
+    if (parent_node == append_node) {
+        return null;
+    }
+
     let right_child = parent_node.right_child;
     let left_child = parent_node.left_child;
 
     parent_node.Draw_text();
-    parent_node.Draw_Circle();
+    parent_node.Draw_Circle(parent_node.color);
+    
     if (right_child) {
         let left_child_cnt = get_sub_tree_cnt(right_child.left_child);
         // 왼쪽 자식의 개수
         right_child.x = parent_node.x + (left_child_cnt + 1) * parent_node.radius * 1.5;
         right_child.y = parent_node.y + parent_node.radius + 20;
-        get_position(parent_node.right_child);
 
-        right_child.Draw_line(parent_node);
+        get_position(parent_node.right_child, append_node);
+
+        if (right_child != append_node) {
+            right_child.Draw_line(parent_node, right_child.color);
+        }
     }
     if (left_child) {
         let right_child_cnt = get_sub_tree_cnt(left_child.right_child);
@@ -143,36 +198,27 @@ function get_position(parent_node) {
         // 왼쪽 자식의 개수
         left_child.x = parent_node.x - (right_child_cnt + 1) * parent_node.radius * 1.5;
         left_child.y = parent_node.y + parent_node.radius + 20;
-        get_position(parent_node.left_child);
 
-        left_child.Draw_line(parent_node);
+        get_position(parent_node.left_child, append_node);
+
+        if (left_child != append_node) {
+            left_child.Draw_line(parent_node, left_child.color);
+        }
     }
 }
 
 function makeCircle() {
     let value = document.getElementById('input_field').value;
     let radius = 20;
-    let color = 'red';
+    let color = 'black';
 
     let newCircle = new Circle(radius, color, (value).toString());
     newCircle.Draw();
 }
 
-// function makeCircle(value, radius, color) {
-//     let newCircle = new Circle(radius, color, (value).toString());
-//     newCircle.Draw();
-// }
-
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 let root_node;
-// let circle_array = [];
-// for (let i = 0; i < 10; i++) {
-//     let ran = Math.floor(Math.random() * 100)
-//     console.log('i : index random is ' + ran);
-//     circle_array[i] = makeCircle(ran, 20, 'red');
-//     // circle_array[i].Draw();
-// }
 
 // TODO : 영역 밖으로 나갔을 경우에 대한 오류 설정
 
@@ -206,19 +252,18 @@ function move_tree(e) {
         //          즉, canvas에 흰 화면만 나오지 않도록 해야 함.
         if (root_node.x < 0) {
             root_node.x = root_node.radius * 1.5;
-            root_node.Draw();
         } else if (root_node.x > canvas.width) {
             root_node.x = canvas.width - root_node.radius * 1.5;
-            root_node.Draw();
         }
 
         if (root_node.y < 0) {
             root_node.y = root_node.radius * 1.5;
-            root_node.Draw();
         } else if (root_node.y > canvas.height) {
             root_node.y = canvas.height - root_node.radius * 1.5;
-            root_node.Draw();
         }
+
+        ctx_clear();
+        get_position(root_node, null);
     }
 };
 
@@ -226,6 +271,7 @@ canvas.addEventListener('mousemove', function(e) {
     if (running) {
         root_node.x = x + (e.clientX - clientX);
         root_node.y = y + (e.clientY - clientY);
-        root_node.Draw();
+        ctx_clear();
+        get_position(root_node, null);
     }
 });
