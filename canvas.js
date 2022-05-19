@@ -14,7 +14,7 @@ function ctx_clear() {
 
 let animation_time = 750;
 let is_run_animation = false;
-// TODO : 애니메이션 도중이 아닐 때, 마우스로 조작 가능하도록 해야함.
+let wheel_radius = 0;
 
 class Circle {
     x;
@@ -79,8 +79,8 @@ class Circle {
 
     Draw_line(r2, color) {
         let distance = Math.sqrt(Math.pow(r2.y - this.y, 2) + Math.pow(r2.x - this.x, 2));
-        let start_x = (this.radius * (r2.x - this.x)) / distance;
-        let start_y = (this.radius * (r2.y - this.y)) / distance;        
+        let start_x = ((this.radius + wheel_radius)* (r2.x - this.x)) / distance;
+        let start_y = ((this.radius + wheel_radius) * (r2.y - this.y)) / distance;        
 
         
         ctx.beginPath();
@@ -95,7 +95,7 @@ class Circle {
 
     Draw_Circle(color) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        ctx.arc(this.x, this.y, this.radius + wheel_radius, 0, Math.PI * 2, true);
         ctx.closePath();
 
         ctx.strokeStyle = color;
@@ -103,7 +103,12 @@ class Circle {
     }
 
     Draw_text() {
-        ctx.font = this.font_size + 'px sans-serif';
+        // ctx.font = (this.font_size + wheel_radius * 2) + 'px sans-serif';
+        let font_size = this.font_size + wheel_radius;
+        console.log(font_size);
+        console.log(wheel_radius);
+
+        ctx.font = font_size + 'px sans-serif';
         ctx.fillText(this.text, this.x, this.y);
     }
 
@@ -193,8 +198,8 @@ function get_position(parent_node, append_node) {
     if (right_child) {
         let left_child_cnt = get_sub_tree_cnt(right_child.left_child);
         // 왼쪽 자식의 개수
-        right_child.x = parent_node.x + (left_child_cnt + 1) * parent_node.radius * 1.5;
-        right_child.y = parent_node.y + parent_node.radius + 20;
+        right_child.x = parent_node.x + ((left_child_cnt + 1) * (parent_node.radius + wheel_radius) * 1.5);
+        right_child.y = parent_node.y + parent_node.radius + 20 + wheel_radius * 2;
 
         get_position(parent_node.right_child, append_node);
 
@@ -206,8 +211,8 @@ function get_position(parent_node, append_node) {
         let right_child_cnt = get_sub_tree_cnt(left_child.right_child);
 
         // 왼쪽 자식의 개수
-        left_child.x = parent_node.x - (right_child_cnt + 1) * parent_node.radius * 1.5;
-        left_child.y = parent_node.y + parent_node.radius + 20;
+        left_child.x = parent_node.x - ((right_child_cnt + 1) * (parent_node.radius + wheel_radius) * 1.5);
+        left_child.y = parent_node.y + parent_node.radius + 20 + wheel_radius * 2;
 
         get_position(parent_node.left_child, append_node);
 
@@ -222,7 +227,7 @@ function makeCircle() {
     let radius = 20;
     let color = 'black';
 
-    let newCircle = new Circle(radius, color, (value).toString());
+    let newCircle = new Circle(radius, color, (value).toString(), 10);
     newCircle.Draw();
 }
 
@@ -261,6 +266,7 @@ function move_tree(e) {
 
         // TODO : 트리의 맨 상/하/좌/우가 경계에 나가지 않도록
         //          즉, canvas에 흰 화면만 나오지 않도록 해야 함.
+        //          트리의 양이 많아지면 wheel_radius를 줄이는 것을 고려해봅시다.
         if (root_node.x < 0) {
             root_node.x = root_node.radius * 1.5;
         } else if (root_node.x > canvas.width) {
@@ -284,5 +290,17 @@ canvas.addEventListener('mousemove', function(e) {
         root_node.y = y + (e.clientY - clientY);
         ctx_clear();
         get_position(root_node, null);
+    }
+});
+
+canvas.addEventListener('wheel', function(e) {
+    if (!is_run_animation) {
+        wheel_radius += e.deltaY * 0.01;
+
+        wheel_radius = (wheel_radius < -12 ? -12 : wheel_radius);
+        ctx_clear();
+        get_position(root_node, null);
+
+        console.log(wheel_radius);
     }
 });
