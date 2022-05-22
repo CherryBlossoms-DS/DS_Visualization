@@ -15,11 +15,12 @@ class bar {
   @param ctx canvas에서 get content로 얻어낸 값
   @param{number} posx 막대 바가 위치할 x좌표
   @param{number} posy 막대 바가 위치항 y좌표
+  @param{number} size 막대 바가 위치항 y좌표
   @param{number} width 막대 바의 가로 크기
   @param{number} value 막대 바의 값
   @param{number} size  막대 바의 사이즈
   */
-  constructor(ctx,posx,posy,width,value,maxv) {
+  constructor(ctx,posx,posy,size,width,value,maxv) {
 
     this.ctx=ctx;
 
@@ -28,6 +29,8 @@ class bar {
     this.posx=posx;
 
     this.posy=posy;
+
+    this.size=size;
 
     this.width=width;
 
@@ -45,7 +48,7 @@ class bar {
     //TODO: 비율에 따라 색 진한정도 달라지게
     this.ctx.fillStyle=this.color;
     //현재 위치에서 위쪽으로 그려짐
-    this.ctx.fillRect(this.posx,this.posy+Y_OFFSET,this.width,-this.posy*this.rate);
+    this.ctx.fillRect(this.posx,this.posy+Y_OFFSET,this.width,-this.size*this.rate);
     this.ctx.font=this.fontSize+"px Georgia";
     this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize+Y_OFFSET);
   }
@@ -77,6 +80,7 @@ class bar {
 const BAR_WIDTH=30;
 const OFFSET=5;
 const BAR_MAX_SIZE=200;
+const BAR_Y=200;
 const COLOR={'select':'lightblue', 'fixed':'orange','none':'default'};
 
 class array {
@@ -91,10 +95,11 @@ class array {
     this.numArr=arr;
     this.arr=[];
     for(let i=0;i<arr.length;i++){
-      this.arr[i]=new bar(this.ctx,OFFSET+i*(BAR_WIDTH+OFFSET),BAR_MAX_SIZE,BAR_WIDTH,
+      this.arr[i]=new bar(this.ctx,OFFSET+i*(BAR_WIDTH+OFFSET),BAR_Y,BAR_MAX_SIZE,BAR_WIDTH,
                           arr[i],maxv);
     }
 
+    this.animation = new animationHelper(this);
   }
 
   length(){
@@ -103,7 +108,8 @@ class array {
 
   /*bar들을을 전부 캔버스에 그림*/
   draw(){
-    //살짝아래로 그려지게
+    console.log(1);
+    //캔버스 비우기
     this.ctx.clearRect(0,0,this.width,this.height);
 
     //TODO:배열 간단하게 추가 회의 후 수정
@@ -130,24 +136,30 @@ class array {
     return this.numArr[i];
   }
 
-  //TODO:두 개의 swap 병합
+  /*
+  i번째 칸과 j번째칸 값만 스왑
+  @param{number} i
+  @param{number} j
+  */
   swapNum(i,j){
     [this.numArr[i],this.numArr[j]]=[this.numArr[j],this.numArr[i]];
   }
+
 
   /*
   i번째 칸과 j번째칸 bar 스왑
   @param{number} i
   @param{number} j
+  @param{number} time 스왑이 얼마내의 시간에 일어나야 되는
   */
-  swap(i,j){
+  swap(i,j,time){
     let posi=this.arr[i].getPos();
     let posj=this.arr[j].getPos();
     //값만 바꿀 수도 있지만 이후 특정 bar에 효과를 적용시킬경우를 대비해 바를 통채로 바꿈
-    this.arr[i].setPos(posj[0],posj[1]);
-    this.arr[j].setPos(posi[0],posi[1]);
+    this.animation.move(this.arr[i],posj[0],posj[1],time);
+    this.animation.move(this.arr[j],posi[0],posi[1],time);
 
-    [this.arr[i],this.arr[j]]=[this.arr[j],this.arr[i]];
+    setTimeout(()=>{[this.arr[i],this.arr[j]]=[this.arr[j],this.arr[i]]},time+5);
 
     this.draw();
   }
@@ -162,6 +174,28 @@ class array {
   }
 
 }
+
+//=================
+const TERM=5;
+class animationHelper {
+  constructor(drawObj){
+    this.drawObj=drawObj;
+  }
+
+  move(obj,toX,toY,time){
+    let nowPos=obj.getPos();
+    let step=parseInt(time/TERM);
+    let speedX=(toX-nowPos[0])/step;
+    let speedY=(toY-nowPos[1])/step;
+
+    for(let i=1;i<step;i++){
+      setTimeout(()=>{obj.setPos(nowPos[0]+speedX*i,nowPos[1]+speedY*i);this.drawObj.draw()},TERM*i);
+    }
+    setTimeout(()=>{obj.setPos(toX,toY);this.drawObj.draw()},time);
+
+  }
+}
+
 
 //==============================
 
@@ -248,9 +282,8 @@ class controler{
         setTimeout(()=>{arr.select(j)},TERM*cnt);
         cnt++;
         if(arr.at(j-1)>arr.at(j)){
-          //비동기라서 값이 제때 안바뀜
           arr.swapNum(j-1,j);
-          setTimeout(()=>{arr.swap(j-1,j)},TERM*cnt);
+          setTimeout(()=>{arr.swap(j-1,j,TERM/2);},TERM*cnt);
           cnt++;
         }
         setTimeout(()=>{arr.select(j-1,'none')},TERM*cnt);
