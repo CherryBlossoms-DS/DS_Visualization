@@ -1,22 +1,11 @@
-
-function init(){
-  let arrText=document.getElementById("arrText");
-  let makeBtn=document.getElementById("makeBtn");
-  let sortBtn=document.getElementById("sortBtn");
-
-  let tmp = new controler(arrText,makeBtn,sortBtn);
-
-  tmp.init();
-
-}
-
+const TERM=800;
 class controler{
   /*
   @param{HtmlElement} arrText 배열을 입력받을 text feild
   @param{HtmlElement} makeBtn 배열을 제작 버튼
   @param{HtmlElement} sortBtn 정렬 버튼
   */
-  constructor(arrText,makeBtn,sortBtn){
+  constructor(canvas,arrText,makeBtn,sortBtn){
 
     this.arrText=arrText;
 
@@ -24,8 +13,13 @@ class controler{
 
     this.sortBtn=sortBtn;
 
+    this.zoomRate=1;
+
     this.arr=[];
 
+    this.canvas=canvas;
+    this.ctx=this.canvas.getContext("2d");
+    this.ctx.translate(100,50);
   }
 
   init(){
@@ -43,6 +37,10 @@ class controler{
   registerEventListener(){
     this.makeBtn.addEventListener('click',()=>{this.setArray()});
     this.sortBtn.addEventListener('click',()=>{this.sort()});
+    this.canvas.addEventListener('mousemove',(e)=>{this.mouseMove(e)});
+    this.canvas.addEventListener('mouseup',(e)=>{this.mouseUp(e)});
+    this.canvas.addEventListener('mousedown',(e)=>{this.mouseDown(e)});
+    this.canvas.addEventListener('wheel',(e)=>{this.wheel(e)});
   }
 
   /*
@@ -59,9 +57,11 @@ class controler{
   arrText에 입력되어 있는 값으로 배열 세팅
   */
   setArray(){
+    if(this.isrunning) return;
     let text=this.arrText.value;
     let tmpArr=this.sToArr(text);
-    this.arr=new array(tmpArr);
+    this.arr=new array(this.canvas,tmpArr);
+    this.arr.zoom(this.zoomRate);
     this.arr.draw();
   }
 
@@ -69,8 +69,8 @@ class controler{
   배열을 정렬함
   */
   sort(){
-    //TODO:정렬시 버튼 disable
-    const TERM=800;
+    if(this.isrunning) return;
+    this.isrunning=true;
     let cnt=0;
     let arr=this.arr;
 
@@ -95,7 +95,57 @@ class controler{
     for(let i=0;i<n;i++){
       setTimeout(()=>{arr.select(i,'none')},TERM*cnt);
     }
+    setTimeout(()=>{this.isrunning=false;},TERM*cnt);
   }
+
+  mouseDown(e){
+    this.clicking=true;
+    this.mouseX=e.clientX;
+    this.mouseY=e.clientY;
+
+  }
+
+  mouseUp(e){
+    this.clicking=false;
+  }
+
+  mouseMove(e){
+    if(this.clicking){
+      this.ctx.translate(e.clientX-this.mouseX,e.clientY-this.mouseY)
+      this.mouseX=e.clientX;
+      this.mouseY=e.clientY;
+      this.arr.draw();
+    }
+  }
+
+  wheel(e){
+    if(this.isrunning) return;
+    if(e.wheelDelta<0){
+      this.arr.zoom(0.9);
+      this.zoomRate*=0.9;
+    }
+    else{
+      this.arr.zoom(1.1);
+      this.zoomRate*=1.1;
+    }
+    this.arr.draw();
+  }
+
+
+}
+
+
+
+function init(){
+  let arrText=document.getElementById("arrText");
+  let makeBtn=document.getElementById("makeBtn");
+  let sortBtn=document.getElementById("sortBtn");
+  let canvas=document.getElementById("canvas");
+
+  let tmp = new controler(canvas,arrText,makeBtn,sortBtn);
+
+  tmp.init();
+
 }
 
 init();

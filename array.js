@@ -5,14 +5,12 @@ const BAR_Y=200;
 const COLOR={'select':'lightblue', 'fixed':'orange','none':'default'};
 
 class array {
-  constructor(arr) {
+  constructor(canvas,arr) {
     let maxv=Math.max(...arr)
 
-    let canvas=document.getElementById("canvas");
     this.ctx=canvas.getContext("2d");
     this.width=canvas.width;
     this.height=canvas.height;
-
     this.numArr=arr;
     this.arr=[];
     for(let i=0;i<arr.length;i++){
@@ -23,29 +21,34 @@ class array {
     this.animation = new animationHelper(this);
   }
 
+  //캔버스 비우기
+  clear(){
+    this.ctx.save();
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0,0,this.width,this.height);
+    this.ctx.restore();
+  }
+
   length(){
     return this.arr.length;
   }
 
   /*bar들을을 전부 캔버스에 그림*/
   draw(){
-    //캔버스 비우기
-    this.ctx.clearRect(0,0,this.width,this.height);
+    this.clear();
 
-    //TODO:배열 간단하게 추가 회의 후 수정
-    let x=5
-    this.ctx.fillStyle="gray";
-    this.ctx.font=20+"px Georgia";
-    this.ctx.fillText("[",x,300);
+    //TODO: 아래 배열 그리기 수정
+    //let x=5
+    //this.ctx.fillStyle="gray";
+    //this.ctx.font=20+"px Georgia";
+    //this.ctx.fillText("[",x,300);
     for(let i=0;i<this.arr.length;i++){
       this.arr[i].draw();
 
-      this.ctx.fillText(this.arr[i].getValue(),x+20*(i+1),300);
+      //this.ctx.fillText(this.arr[i].getValue(),x+20*(i+1),300);
     }
-    this.ctx.fillStyle="gray";
-    this.ctx.fillText(']',x+20*(this.arr.length+1),300);
-
-    //TODO: 아래 배열 그리기 수정
+    //this.ctx.fillStyle="gray";
+    //this.ctx.fillText(']',x+20*(this.arr.length+1),300);
   }
 
   /*
@@ -91,6 +94,12 @@ class array {
   select(i,color='select'){
     this.arr[i].setColor(COLOR[color]);
     this.draw();
+  }
+
+  zoom(rate){
+    for(let i=0;i<this.arr.length;i++){
+      this.arr[i].zoom(rate);
+    }
   }
 
 }

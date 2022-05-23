@@ -1,13 +1,4 @@
 const DEFAULT_COLOR="red";
-const DEFAULT_FONTSIZE=20;
-const Y_OFFSET=10;
-
-function sleep(ms){
-  let start=Date.now(), now=start;
-  while(now-start<ms){
-    now=Date.now();
-  }
-}
 
 class bar {
   /*
@@ -37,7 +28,7 @@ class bar {
 
     this.rate=value/maxv;
 
-    this.fontSize=DEFAULT_FONTSIZE;
+    this.fontSize=width-10;
   }
 
   /*
@@ -47,9 +38,9 @@ class bar {
     //TODO: 비율에 따라 색 진한정도 달라지게
     this.ctx.fillStyle=this.color;
     //현재 위치에서 위쪽으로 그려짐
-    this.ctx.fillRect(this.posx,this.posy+Y_OFFSET,this.width,-this.size*this.rate);
+    this.ctx.fillRect(this.posx,this.posy,this.width,-this.size*this.rate);
     this.ctx.font=this.fontSize+"px Georgia";
-    this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize+Y_OFFSET);
+    this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize);
   }
 
   setColor(color){
@@ -73,4 +64,12 @@ class bar {
   getValue(){
     return this.value;
   }
+
+  zoom(rate){
+    this.width*=rate;
+    this.size*=rate;
+    this.posx*=rate;
+    this.fontSize*=rate;
+  }
+
 }
