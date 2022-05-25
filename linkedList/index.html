@@ -14,6 +14,11 @@
             margin-top: 30px;
         }
 
+        input{
+            width:50px;
+            text-align: center;
+        }
+
     </style>
 
     <script src="index.js"></script>
@@ -21,14 +26,14 @@
 </head>
 
 <body onload="init()">
-    Insert: <input id="insert" placeholder="value&lt;10000" type="text">
-    <button onclick="insert()">OK</button></input>
+    <input id="index" placeholder="인덱스" type="text"> 
+    <input id="value" placeholder="값" type="text">
+    <button onclick="insert()">삽입</button></input> 
+    <button onclick="remove()">삭제</button></input>
+    <button onclick="search()">탐색</button></input> 
+    <button onclick="insertHead()">머리에 삽입</button></input> 
+    <button onclick="insertTail()">꼬리에 삽입</button></input>
 
-    Delete: <input id="delete" placeholder="index" type="text">
-    <button onclick="remove()">OK</button></input>
-
-    Search: <input id="search" placeholder="value" type="text">
-    <button onclick="search()">OK</button></input>
 
     <br><br>
     <canvas id="canvas" height="1000" width="1000"></canvas>
