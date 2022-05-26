@@ -41,7 +41,6 @@ class bar {
     this.ctx.fillRect(this.posx,this.posy,this.width,-this.size*this.rate);
     this.ctx.font=this.fontSize+"px Georgia";
     this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize);
-    //this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize*2+30);
   }
 
   setColor(color){
