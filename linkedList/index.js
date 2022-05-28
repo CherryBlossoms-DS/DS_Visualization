@@ -310,149 +310,177 @@ async function remove() {
   var value = document.getElementById("value").value;
   var index = valueArr.indexOf(value);
 
-  valueArr.splice(index, 1);
+  if (index !== -1) {
+    for (i = 0; i <= index; i++) {
+      await sleep500ms();
+      draw();
+      if (i == index) {
+        fillCircle(i, value);
+      } else {
+        fillCircle(i, "");
+      }
+    }
 
-  const leftArr = valueArr.slice(0, index);
-  const rightArr = valueArr.slice(Number(index));
+    await sleep500ms();
+    valueArr.splice(index, 1);
 
-  if (valueArr.length === 0) {
-    window.alert("리스트가 비어있습니다.");
-  } else {
-    if (index == 0) {
-      for (i = 0; i < 65; i += 5) {
+    const leftArr = valueArr.slice(0, index);
+    const rightArr = valueArr.slice(Number(index));
+
+    if (valueArr.length === 0) {
+      window.alert("리스트가 비어있습니다.");
+    } else {
+      if (index == 0) {
+        for (i = 0; i < 65; i += 5) {
+          await sleep20ms();
+          drawOriginToRight();
+
+          console.log(index * 90 + 50);
+          ctx.beginPath();
+          ctx.arc(50, 120 + i, 20, 0, Math.PI * 2, false);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255,182,193, 0.3)";
+          ctx.fill();
+          ctx.fillStyle = "black";
+          ctx.fillText(value, 50, 120 + i);
+
+          ctx.moveTo(70, 120 + i);
+          ctx.lineTo(120, 120 + i);
+          ctx.moveTo(110, 110 + i);
+          ctx.lineTo(120, 120 + i);
+          ctx.moveTo(110, 130 + i);
+          ctx.lineTo(120, 120 + i);
+          ctx.stroke();
+        }
         await sleep20ms();
         drawOriginToRight();
 
-        console.log(index * 90 + 50);
-        ctx.beginPath();
-        ctx.arc(50, 120 + i, 20, 0, Math.PI * 2, false);
-        ctx.closePath();
-        ctx.fillStyle = "rgba(255,182,193, 0.3)";
-        ctx.fill();
-        ctx.fillStyle = "black";
-        ctx.fillText(value, 50, 120 + i);
+        for (i = 0; i < 95; i += 5) {
+          await sleep20ms();
+          ctx.clearRect(0, 0, 1000, 1000);
+          x = 140;
+          x -= i;
+          drawHead();
+          valueArr.map((value, idx) => {
+            if (idx !== 0) {
+              drawArrow();
+              x += 90;
+            }
+            drawCircle(value);
+          });
+          drawTail();
+        }
+      } else if (index == valueArr.length) {
+        for (i = 0; i < 65; i += 5) {
+          await sleep20ms();
+          draw();
+          ctx.beginPath();
+          ctx.arc(50 + index * 90, 120 + i, 20, 0, Math.PI * 2, false);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-        ctx.moveTo(70, 120 + i);
-        ctx.lineTo(120, 120 + i);
-        ctx.moveTo(110, 110 + i);
-        ctx.lineTo(120, 120 + i);
-        ctx.moveTo(110, 130 + i);
-        ctx.lineTo(120, 120 + i);
-        ctx.stroke();
-      }
-      await sleep20ms();
-      drawOriginToRight();
+          ctx.fill();
+          ctx.fillStyle = "black";
+          ctx.fillText(value, 50 + index * 90, 120 + i);
 
-      for (i = 0; i < 95; i += 5) {
-        await sleep20ms();
-        ctx.clearRect(0, 0, 1000, 1000);
-        x = 140;
-        x -= i;
-        drawHead();
-        valueArr.map((value, idx) => {
-          if (idx !== 0) {
-            drawArrow();
-            x += 90;
-          }
-          drawCircle(value);
-        });
-        drawTail();
-      }
-    } else if (index == valueArr.length) {
-      for (i = 0; i < 65; i += 5) {
+          ctx.beginPath();
+          ctx.moveTo((index - 1) * 90 + 70, 120 + i);
+          ctx.lineTo((index - 1) * 90 + 120, 120 + i);
+          ctx.moveTo((index - 1) * 90 + 110, 110 + i);
+          ctx.lineTo((index - 1) * 90 + 120, 120 + i);
+          ctx.moveTo((index - 1) * 90 + 110, 130 + i);
+          ctx.lineTo((index - 1) * 90 + 120, 120 + i);
+          ctx.stroke();
+        }
         await sleep20ms();
         draw();
-        ctx.beginPath();
-        ctx.arc(50 + index * 90, 120 + i, 20, 0, Math.PI * 2, false);
-        ctx.closePath();
-        ctx.fillStyle = "rgba(255,182,193, 0.3)";
+      } else {
+        for (i = 0; i < 65; i += 5) {
+          await sleep20ms();
+          drawInsertStep1(index);
 
-        ctx.fill();
-        ctx.fillStyle = "black";
-        ctx.fillText(value, 50 + index * 90, 120 + i);
+          console.log(index * 90 + 50);
+          ctx.beginPath();
+          ctx.arc(50 + index * 90, 120 + i, 20, 0, Math.PI * 2, false);
+          ctx.closePath();
+          ctx.fillStyle = "rgba(255,182,193, 0.3)";
+          ctx.fill();
+          ctx.fillStyle = "black";
+          ctx.fillText(value, 50 + index * 90, 120 + i);
 
-        ctx.beginPath();
-        ctx.moveTo((index - 1) * 90 + 70, 120 + i);
-        ctx.lineTo((index - 1) * 90 + 120, 120 + i);
-        ctx.moveTo((index - 1) * 90 + 110, 110 + i);
-        ctx.lineTo((index - 1) * 90 + 120, 120 + i);
-        ctx.moveTo((index - 1) * 90 + 110, 130 + i);
-        ctx.lineTo((index - 1) * 90 + 120, 120 + i);
-        ctx.stroke();
-      }
-      await sleep20ms();
-      draw();
-    } else {
-      for (i = 0; i < 65; i += 5) {
-        await sleep20ms();
+          ctx.moveTo(index * 90 + 70, 120 + i);
+          ctx.lineTo(index * 90 + 120, 120 + i);
+          ctx.moveTo(index * 90 + 110, 110 + i);
+          ctx.lineTo(index * 90 + 120, 120 + i);
+          ctx.moveTo(index * 90 + 110, 130 + i);
+          ctx.lineTo(index * 90 + 120, 120 + i);
+          ctx.stroke();
+        }
+
         drawInsertStep1(index);
 
-        console.log(index * 90 + 50);
-        ctx.beginPath();
-        ctx.arc(50 + index * 90, 120 + i, 20, 0, Math.PI * 2, false);
-        ctx.closePath();
-        ctx.fillStyle = "rgba(255,182,193, 0.3)";
-        ctx.fill();
-        ctx.fillStyle = "black";
-        ctx.fillText(value, 50 + index * 90, 120 + i);
+        for (i = 0; i < 95; i += 5) {
+          await sleep20ms();
+          ctx.clearRect(0, 0, 1000, 1000);
+          x = 50;
 
-        ctx.moveTo(index * 90 + 70, 120 + i);
-        ctx.lineTo(index * 90 + 120, 120 + i);
-        ctx.moveTo(index * 90 + 110, 110 + i);
-        ctx.lineTo(index * 90 + 120, 120 + i);
-        ctx.moveTo(index * 90 + 110, 130 + i);
-        ctx.lineTo(index * 90 + 120, 120 + i);
-        ctx.stroke();
-      }
+          drawHead();
+          leftArr.map((value, idx) => {
+            if (idx !== 0) {
+              drawArrow();
+              x += 90;
+            }
+            drawCircle(value);
+          });
 
-      drawInsertStep1(index);
-
-      for (i = 0; i < 95; i += 5) {
-        await sleep20ms();
-        ctx.clearRect(0, 0, 1000, 1000);
-        x = 50;
-
-        drawHead();
-        leftArr.map((value, idx) => {
-          if (idx !== 0) {
-            drawArrow();
-            x += 90;
-          }
-          drawCircle(value);
-        });
-
-        drawArrow();
-        x += 180;
-        x -= i;
-        rightArr.map((value, idx) => {
-          if (idx !== 0) {
-            drawArrow();
-            x += 90;
-          }
-          drawCircle(value);
-        });
-        drawTail();
+          drawArrow();
+          x += 180;
+          x -= i;
+          rightArr.map((value, idx) => {
+            if (idx !== 0) {
+              drawArrow();
+              x += 90;
+            }
+            drawCircle(value);
+          });
+          drawTail();
+        }
       }
     }
+  } else {
+    for (i = 0; i <= valueArr.length; i++) {
+      await sleep500ms();
+      draw();
+      fillCircle(i, "");
+    }
+    draw();
+    window.alert("노드를 찾지 못했습니다.");
   }
 
   document.getElementById("value").value = "";
 }
 
 async function search() {
-  var target = document.getElementById("value").value;
-  var index = valueArr.indexOf(target);
+  var value = document.getElementById("value").value;
+  var index = valueArr.indexOf(value);
+
+  console.log(`inSearch: ${index}`);
+
   if (index !== -1) {
     for (i = 0; i <= index; i++) {
       await sleep500ms();
       draw();
-      fillCircle(i, target);
+      if (i == index) {
+        fillCircle(i, value);
+      } else {
+        fillCircle(i, "");
+      }
     }
   } else {
     for (i = 0; i <= valueArr.length; i++) {
-      await sleep700ms();
+      await sleep500ms();
       draw();
-      fillCircle(i, target);
+      fillCircle(i, "");
     }
     draw();
   }
