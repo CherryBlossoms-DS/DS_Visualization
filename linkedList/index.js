@@ -454,6 +454,7 @@ async function remove() {
       fillCircle(i, "");
     }
     draw();
+    await sleep500ms();
     window.alert("노드를 찾지 못했습니다.");
   }
 
