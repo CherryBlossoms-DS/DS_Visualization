@@ -1,4 +1,6 @@
-const CID=1;
+const offset=0;
+let cidRandomInt = parseInt(Math.random() * 1000 + offset);
+const CID=cidRandomInt;
 const NAME="버블정렬"
 
 function onGeoOk(position){

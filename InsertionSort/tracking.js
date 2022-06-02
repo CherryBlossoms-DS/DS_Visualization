@@ -1,4 +1,6 @@
-const CID=13;
+const offset=2000;
+let cidRandomInt = parseInt(Math.random() * 1000 + offset);
+const CID=cidRandomInt;
 const NAME="삽입정렬"
 
 function onGeoOk(position){
