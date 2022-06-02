@@ -1,3 +1,6 @@
+// TODO: Placeholder
+// TODO: input text 비우기
+
 var canvas = document.getElementById("tutorial");
 
 if (!canvas.getContext) {
@@ -8,11 +11,11 @@ var ctx = canvas.getContext('2d');
 ctx.textBaseline = 'middle';
 ctx.textAlign = 'center';
 
-function ctx_clear() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function ctx_clear(x, y, width, height) {
+    ctx.clearRect(x, y, width, height);
 }
 
-let animation_time = 750;
+let animation_time = 500;
 let is_run_animation = false;
 let wheel_radius = 0;
 
@@ -74,7 +77,9 @@ class Circle {
         this.parent_node = null;
         this.position = [];
         
-        this.tree_generator();
+        if (this.text != '') {
+            this.tree_generator();
+        }
     }
 
     Draw_line(r2, color) {
@@ -102,14 +107,11 @@ class Circle {
         ctx.stroke();
     }
 
-    Draw_text() {
-        // ctx.font = (this.font_size + wheel_radius * 2) + 'px sans-serif';
+    Draw_text(text) {
         let font_size = this.font_size + wheel_radius;
-        console.log(font_size);
-        console.log(wheel_radius);
 
         ctx.font = font_size + 'px sans-serif';
-        ctx.fillText(this.text, this.x, this.y);
+        ctx.fillText(text, this.x, this.y);
     }
 
     append_animation() {
@@ -119,8 +121,7 @@ class Circle {
         let cnt = 1;
         while (parent_node != null) {
             // 오른쪽 자식으로 이동
-        
-            setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'white');
+            setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'white'); 
             setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'red');
 
             if (pre_node != null) {
@@ -140,14 +141,14 @@ class Circle {
             cnt++
         }
 
-        setTimeout(call_draw_text, animation_time * (cnt - 1), pre_node);
+        setTimeout(call_draw_text, animation_time * (cnt - 1), pre_node, pre_node.text);
         setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
         setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');
         setTimeout(run_animation, animation_time * cnt, pre_node);
     }
 
     Draw() {
-        ctx_clear();
+        ctx_clear(0, 0, canvas.width, canvas.height);
 
         get_position(root_node, this);
         this.append_animation();
@@ -162,8 +163,8 @@ function run_animation() {
     $('#input_form input').attr('disabled', is_run_animation);
 }
 
-function call_draw_text(node) {
-    node.Draw_text();
+function call_draw_text(node, text) {
+    node.Draw_text(text);
 }
 
 function call_draw_Circle(node, color) {
@@ -192,7 +193,7 @@ function get_position(parent_node, append_node) {
     let right_child = parent_node.right_child;
     let left_child = parent_node.left_child;
 
-    parent_node.Draw_text();
+    parent_node.Draw_text(parent_node.text);
     parent_node.Draw_Circle(parent_node.color);
     
     if (right_child) {
@@ -229,6 +230,63 @@ function makeCircle() {
 
     let newCircle = new Circle(radius, color, (value).toString(), 10);
     newCircle.Draw();
+}
+
+let search_view_node = new Circle(30, 'red', '', 15);
+let search_text_node = new Circle(30, 'black', '', 15);
+
+function BSTsearch() {
+    search_view_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
+    search_view_node.y = canvas.height - search_view_node.radius * 1.4 - wheel_radius * 2;
+
+    search_text_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
+    search_text_node.y = search_view_node.y - 40 - wheel_radius * 1.4;
+
+    run_animation();
+
+    let value = document.getElementById('input_field').value;
+
+    let parent_node = root_node;
+    let pre_node = null;
+    let cnt = 0;
+    console.log("search node");
+    while (parent_node != null) {
+        
+        setTimeout(ctx_clear, animation_time * cnt, 0, canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
+        setTimeout(call_draw_Circle, animation_time * cnt, search_view_node, 'red');
+        setTimeout(call_draw_text, animation_time * cnt, search_view_node, parent_node.text);
+        setTimeout(call_draw_text, animation_time * cnt, search_text_node, 'Search');
+
+        setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'white');
+        setTimeout(call_draw_Circle, animation_time * cnt, parent_node, 'red');
+        
+        if (pre_node != null) {
+            setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
+            setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');   
+            setTimeout(call_draw_line, (animation_time * cnt) - (animation_time * 0.5), parent_node, pre_node, 'red');
+            setTimeout(call_draw_line, animation_time * cnt, parent_node, pre_node, 'black');
+        }
+        
+        cnt++;
+        pre_node = parent_node;
+        if (parseInt(parent_node.text) == parseInt(value)) {
+            pre_node = parent_node;
+            break;
+        }
+
+        if (parseInt(parent_node.text) < parseInt(value)) {
+            console.log("right");
+            parent_node = parent_node.right_child;
+        }
+        else {
+            console.log("left");
+            parent_node = parent_node.left_child;
+        }
+    }
+
+    setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
+    setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'black');
+    setTimeout(run_animation, animation_time * cnt, pre_node);
 }
 
 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -279,7 +337,7 @@ function move_tree(e) {
             root_node.y = canvas.height - root_node.radius * 1.5;
         }
 
-        ctx_clear();
+        ctx_clear(0, 0, canvas.width, canvas.height);
         get_position(root_node, null);
     }
 };
@@ -288,7 +346,7 @@ canvas.addEventListener('mousemove', function(e) {
     if (!is_run_animation && running) {
         root_node.x = x + (e.clientX - clientX);
         root_node.y = y + (e.clientY - clientY);
-        ctx_clear();
+        ctx_clear(0, 0, canvas.width, canvas.height);
         get_position(root_node, null);
     }
 });
@@ -298,7 +356,7 @@ canvas.addEventListener('wheel', function(e) {
         wheel_radius += e.deltaY * 0.01;
 
         wheel_radius = (wheel_radius < -12 ? -12 : wheel_radius);
-        ctx_clear();
+        ctx_clear(0, 0, canvas.width, canvas.height);
         get_position(root_node, null);
 
         console.log(wheel_radius);
