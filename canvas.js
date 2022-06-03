@@ -159,7 +159,7 @@ class Circle {
 function run_animation() {
     is_run_animation = !is_run_animation;
     
-    // document.getElementById('insert_btn').disabled = ;
+    document.getElementById('input_field').value = '';
     $('#input_form input').attr('disabled', is_run_animation);
 }
 
@@ -224,7 +224,9 @@ function get_position(parent_node, append_node) {
 }
 
 function makeCircle() {
-    let value = document.getElementById('input_field').value;
+    let input_element = document.getElementById('input_field');
+    let value = input_element.value;
+
     let radius = 20;
     let color = 'black';
 
@@ -236,20 +238,26 @@ let search_view_node = new Circle(30, 'red', '', 15);
 let search_text_node = new Circle(30, 'black', '', 15);
 
 function BSTsearch() {
+    if (root_node == undefined) {
+        alert('추가 연산부터 진행해 주세요');
+        return;
+    }
+
     search_view_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
     search_view_node.y = canvas.height - search_view_node.radius * 1.4 - wheel_radius * 2;
 
     search_text_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
     search_text_node.y = search_view_node.y - 40 - wheel_radius * 1.4;
 
-    run_animation();
 
     let value = document.getElementById('input_field').value;
+    run_animation();
 
     let parent_node = root_node;
     let pre_node = null;
     let cnt = 0;
-    console.log("search node");
+    
+    let search_success = false;
     while (parent_node != null) {
         
         setTimeout(ctx_clear, animation_time * cnt, 0, canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
@@ -269,8 +277,11 @@ function BSTsearch() {
         
         cnt++;
         pre_node = parent_node;
+
+        // 찾았을 경우
         if (parseInt(parent_node.text) == parseInt(value)) {
             pre_node = parent_node;
+            search_success = true;
             break;
         }
 
@@ -282,6 +293,13 @@ function BSTsearch() {
             console.log("left");
             parent_node = parent_node.left_child;
         }
+    }
+
+    if (search_success == false) {
+        setTimeout(ctx_clear, animation_time * cnt, 0, canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
+        setTimeout(call_draw_Circle, animation_time * cnt, search_view_node, 'red');
+        setTimeout(call_draw_text, animation_time * cnt, search_view_node, "NULL");
+        setTimeout(call_draw_text, animation_time * cnt, search_text_node, 'Search')
     }
 
     setTimeout(call_draw_Circle, animation_time * cnt, pre_node, 'white');
