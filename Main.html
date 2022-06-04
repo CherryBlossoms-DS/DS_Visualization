@@ -6,130 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./src/css/Main.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="./src/js/Main.js"></script>
+  
   <title>Final Project Website</title>
-
-  <style>
-    body {
-      /* Main Page (fixed) */
-      position: relative;
-      color: #EFBED9;
-      text-align: center;
-      font-family: 'Gotham A', 'Gotham B', 'Spoqa Han Sans';
-    }
-
-    .navbar {
-      margin-bottom: 0;
-      border-width: 0;
-    }
-
-    .navbar-custom {
-      background-color: #666666;
-    }
-
-    .bg-1 {
-      /* main banner */
-      height: 500px;
-      /* background: url(image.png); */
-      background-color: rgb(66, 66, 66);
-      text-align: center;
-      font-size: 5em;
-    }
-
-    .bg-2 {
-      /* Visualization */
-      height: 700px;
-      background-color: #666666;
-      position: relative;
-    }
-
-    .bg-2 h1 {
-      margin-top: 80px;
-      margin-bottom: 80px;
-      font-size: 3.5em;
-    }
-
-    .bg-2 p {
-      margin-top: 20px;
-      color: white;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .bg-3 {
-      color: black;
-      background-color: #F4F4F4;
-      height: 500px;
-    }
-
-    .vis {
-      margin-left: 150px;
-      margin-right: 150px;
-    }
-
-    .col-sm-4 {
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .vis-btn {
-      margin-top: 60px;
-
-      background-color: #666666;
-      border: 2px solid white;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 1.5em;
-    }
-
-    .vis-btn a {
-      color: #EFBED9;
-    }
-
-    .vis-btn a:hover {
-      text-decoration: none;
-      color: #ffffff;
-    }
-
-    .about-btn {
-      margin-top: 60px;
-      background-color: #F4F4F4;
-      border: 2px solid rgb(241, 169, 169);
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 1.5em;
-    }
-
-    .about-btn a {
-      color: black;
-    }
-
-    .about-btn a:hover {
-      text-decoration: none;
-      /* color: #ffffff; */
-    }
-
-    footer {
-      height: 200px;
-      background-color: #666666;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
-
 </head>
 
 <body>
 
   <!-- Navgiation Bar -->
-  <nav class="navbar navbar-default navbar-custom">
-    <div class="container">
+  <nav class="navbar navbar-default navbar-custom1">
+    <div class="container navbar-custom2">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#" style="color: #EFBED9;">Logo</a>
+        <a class="navbar-brand" href="Main.html" style="color: #EFBED9;">Logo</a>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -155,56 +47,47 @@
 
   <!-- Visualization -->
   <div class="container-fluid bg-2">
-    <h1>Visualization</h1>
+    <!-- <h1>시각화</h1> -->
+    <h1 class="text-center text-init">시각화</h1>
     <div class="vis">
-      <div class="row">
-        <div class="col-sm-4">
-          <a href="#"><img src="./image/sorting.gif" class="img-rounded" style="width: 60%;" alt="sorting gif"></a>
+      <div class="row vis-warp">
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/sorting.png" class="img-rounded vis-img" alt="Bubble Sort">
+          </a>
           <p>거품 정렬</p>
         </div>
-        <div class="col-sm-4">
-          <a href="./bst.html"><img src="./image/bst.gif" class="img-rounded" style="width: 60%;" alt="bst gif"></a>
+        <div class="vis-container">
+          <a href="./bst.html"><img src="./src/image/Visualization/bst.png" class="img-rounded vis-img" alt="bst gif"></a>
           <p>이진 검색 트리</p>
         </div>
-        <div class="col-sm-4">
-          <a href="#"><img src="./image/list.gif" class="img-rounded" style="width: 60%;" alt="list gif"></a>
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/list.png" class="img-rounded vis-img" alt="list gif">
+          </a>
           <p>연결리스트</p>
         </div>
       </div>
 
-      <div class="row">
-        <button class="btn btn-defulat btn-lg vis-btn">
-          <a href="./Visualization.html">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            More&nbsp;&gt;&gt;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </a>
+      <div class="row more-btn-posi">
+        <button class="vis-btn">
+          <a href="./Visualization.html">More&nbsp;&nbsp;&nbsp;&gt;&gt;</a>
         </button>
       </div>
     </div>
   </div>
 
   <!-- Team 소개 및 프로젝트 소개 simple하게 -->
-  <div class="container-fluid bg-3">
-    <div>
-      <h1 style="margin-top: 100px; margin-bottom: 70px;">자료구조 시각화</h1>
-      <h3>Cherry Blossom은 Javascript를 통해</h3>
-      <h3>세상에 없던 <b>한국어판 자료구조 시각화</b>를 만들어가고 있습니다.</h3>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-4">
-        <img src="" alt="">
-        <p></p>
-      </div>
-      <div class="col-sm-4">
-        <img src="" alt="">
-        <p></p>
-      </div>
-      <div class="col-sm-4">
-        <img src="" alt="">
-        <p></p>
-      </div>
+  <div class="container-fluid bg-3 text-center">
+    <div class="row text-loc">
+      <h1 class="text-init">About</h1>
+      <h3 class="text-init3">Introduce team and project</h3>
+      <h4 class="text-init4">
+        <!-- Cherry Blossom is creating a visualization of the Korean version of the data structure  <br>
+        so that you can become familiar with the data structure through the website. -->
+        Cherry Blossom은 Javascript를 통해 <br>
+        세상에 없던 <b>한국어판 자료구조 시각화</b>를 만들어가고 있습니다.
+      </h4>
     </div>
 
     <div class="row">
