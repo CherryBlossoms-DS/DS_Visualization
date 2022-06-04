@@ -2,6 +2,9 @@ var x;
 var count = 0;
 var ctx;
 var valueArr = [];
+var click = false;
+var mouseX = 0;
+var mouseY = 0;
 
 function init() {
   const canvas = document.getElementById("canvas");
@@ -9,6 +12,26 @@ function init() {
   ctx.font = "14px arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
+
+  canvas.addEventListener("mousedown", (e) => {
+    click = true;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  canvas.addEventListener("mouseup", (e) => {
+    click = false;
+  });
+
+  canvas.addEventListener("mousemove", (e) => {
+    if (click) {
+      ctx.translate(e.clientX - mouseX, e.clientY - mouseY);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      ctx.clearRect(mouseX, mouseY, 1000, 1000);
+      draw();
+    }
+  });
 }
 
 //애니메이션을 위한 동기 구현
