@@ -15,22 +15,6 @@ body {
     letter-spacing: -0.015em;
 }
 
-.navbar {
-    margin-bottom: 0;
-    border-width: 0;
-}
-
-.navbar-custom1 {
-    background-color: #666666;
-    height: 60px;
-    text-align: center;
-}
-
-.navbar-custom2 {
-    padding-top: 5px;
-    font-size: 1.2em;
-}
-
 .bg-1 {
     /* main banner */
     height: 85vh;
@@ -54,9 +38,9 @@ body {
 }
 
 .vis-container p {
-    margin-top: 20px;
+    margin-top: 0.5vw;
     color: white;
-    font-size: 2.5em;
+    font-size: 1.4vw;
     font-weight: bold;
     text-align: center;
 }
@@ -82,7 +66,7 @@ body {
 
 
 .more-btn-posi {
-    margin-top: 75px;
+    margin-top: 6vw;
     text-align: center;
 }
 
@@ -92,11 +76,11 @@ body {
 
 .vis-btn {
     background-color: #666666;
-    border: 4px solid white;
-    border-radius: 30px;
+    border: 0.3vw solid white;
+    border-radius: 138px;
     font-weight: bold;
-    font-size: 2.5em;
-    padding: 0 40px;
+    font-size: 2vw;
+    padding: 0.4vw 2.3vw;
 }
 
 .text-init {

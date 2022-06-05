@@ -1,0 +1,15 @@
+.navbar {
+    margin-bottom: 0;
+    border-width: 0;
+}
+
+.navbar-custom1 {
+    background-color: #666666;
+    height: 60px;
+    text-align: center;
+}
+
+.navbar-custom2 {
+    padding-top: 5px;
+    font-size: 1.2em;
+}

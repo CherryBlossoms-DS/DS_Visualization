@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./src/css/Navbar.css">
+  <link rel="stylesheet" href="./src/css/Visualization.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="./src/js/Visuliaztion.js"></script>
+  
+  <title>DS Visualization - Visualization</title>
+</head>
+
+<body>
+
+    <!-- Navgiation Bar -->
+    <nav class="navbar navbar-default navbar-custom1">
+        <div class="container navbar-custom2">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="Main.html" style="color: #EFBED9;">Logo</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="About.html" style="color: #EFBED9;">About</a></li>
+                <li><a href="Visualization.html" style="color: #EFBED9;">Visualization</a></li>
+                <li><a href="Analysis.html" style="color: #EFBED9;">Analysis</a></li>
+                <li><a href="Support.html" style="color: #EFBED9;">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- main  -->
+    <h1 id="header">Visualization</h1>
+
+    <div class="form_position">
+        <form class="search_form">
+            <input type="text">
+            <input type="image" src="./src/image/vector/search_butotn.png">
+        </form>
+    </div>
+
+  <!-- Visualization -->
+  <div class="container-fluid bg-2">
+    <div class="vis">
+      <div class="row vis-warp">
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/sorting.png" class="img-rounded vis-img" alt="정렬">
+          </a>
+          <p>정렬</p>
+          <tag>
+            <button>거품 정렬</button>
+            <button>삽입 정렬</button>
+            <button>선택 정렬</button>
+          </tag>
+        </div>
+        <div class="vis-container">
+          <a href="./bst.html"><img src="./src/image/Visualization/bst.png" class="img-rounded vis-img" alt="이진 검색 트리"></a>
+          <p>이진 검색 트리</p>
+          <tag>
+            <button>트리</button>
+          </tag>
+        </div>
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/list.png" class="img-rounded vis-img" alt="단일 연결 리스트">
+          </a>
+          <p>단일 연결 리스트</p>
+          <tag>
+              <button>연결 리스트</button>
+          </tag>
+        </div>
+      </div>
+
+      <div class="row vis-warp">
+        <div class="vis-container">
+          <a href="./bst.html"><img src="./src/image/Visualization/stack.png" class="img-rounded vis-img" alt="스택"></a>
+          <p>스택</p>
+          <tag>
+            <button>연결 리스트</button>
+            <button>배열</button>
+          </tag>
+        </div>
+        <div class="vis-container">
+            <a href="#">
+              <img src="./src/image/Visualization/graphds.png" class="img-rounded vis-img" alt="그래프">
+            </a>
+            <p>그래프</p>
+            <tag>
+              <button>무방향 그래프</button>
+              <button>방향 그래프</button>
+            </tag>
+        </div>
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/heap.png" class="img-rounded vis-img" alt="최대/최소 힙">
+          </a>
+          <p>최대/최소 힙</p>
+          <tag>
+              <button>우선 순위 큐</button>
+              <button>완전 이진 트리</button>
+          </tag>
+        </div>
+      </div>
+
+      <div class="row vis-warp">
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/dp.png" class="img-rounded vis-img" alt="다이나믹 프로그래밍">
+          </a>
+          <p>다이나믹 프로그래밍</p>
+          <tag>
+            <button>재귀</button>
+          </tag>
+        </div>
+        <div class="vis-container">
+          <a href="./bst.html"><img src="./src/image/Visualization/mst.png" class="img-rounded vis-img" alt="최소 신장 트리"></a>
+          <p>최소 신장 트리</p>
+          <tag>
+            <button>그래프</button>
+            <button>트리</button>
+          </tag>
+        </div>
+        <div class="vis-container">
+          <a href="#">
+            <img src="./src/image/Visualization/tortoise-hare.png" class="img-rounded vis-img" alt="토끼와 거북이 알고리즘">
+          </a>
+          <p>토끼와 거북이</p>
+          <tag>
+              <button>연결 리스트</button>
+              <button>투 포인터</button>
+          </tag>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>
