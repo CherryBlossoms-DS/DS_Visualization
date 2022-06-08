@@ -1,6 +1,10 @@
 .navbar {
     margin-bottom: 0;
     border-width: 0;
+<<<<<<< Updated upstream
+=======
+    z-index: 100;
+>>>>>>> Stashed changes
 }
 
 .navbar-custom1 {
@@ -12,4 +16,16 @@
 .navbar-custom2 {
     padding-top: 5px;
     font-size: 1.2em;
+<<<<<<< Updated upstream
+=======
+}
+
+.navbar-brand {
+    display: flex;
+    padding: 0;
+}
+
+.nav-item img {
+    height: 55px;
+>>>>>>> Stashed changes
 }
