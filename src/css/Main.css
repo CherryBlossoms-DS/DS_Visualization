@@ -8,7 +8,11 @@ body {
     /* Main Page (fixed) */
     position: relative;
     color: #EFBED9;
+<<<<<<< Updated upstream
     font-family: 'Montserrat', sans-serif;
+=======
+    font-family: 'IBM Plex Sans KR', sans-serif;
+>>>>>>> Stashed changes
     font-size: 10px;
     font-weight: 700;
     line-height: 44px;
@@ -40,8 +44,13 @@ body {
 .vis-container p {
     margin-top: 0.5vw;
     color: white;
+<<<<<<< Updated upstream
     font-size: 1.4vw;
     font-weight: bold;
+=======
+    font-size: 1.6vw;
+    font-weight: 600;
+>>>>>>> Stashed changes
     text-align: center;
 }
 

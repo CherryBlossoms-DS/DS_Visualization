@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
+
+body {
+    background-color: #534E4E;
+
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-style: normal;
+
+    color: white;
+    overflow-x: hidden;
+}
+
+#header-wrap {
+    height: 93.5vh;
+    width: 99vw;
+    
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+#header-wrap h1 {
+    margin-top: 0;
+    margin-bottom: 6vw;
+
+    font-size: min(6vw, 80px);
+    font-weight: 800;
+    color: #EFBED9;
+}
+
+#header-wrap .role {
+    font-size: 1.65vw;
+    color: white;
+    font-weight: 600;
+}
+
+.role {
+    text-align: center;
+    font-size: 1.2vw;
+}
+
+.specialty-container {
+    height: 100vh;
+    width: 99vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: #0f0e0e
+}
+
+.transition {
+    width: 62vw;
+    height: 33vw;
+
+    position: relative;
+}
+
+.specialty-wrap {
+    text-align: center;
+}
+
+.specialty-wrap h1 {
+    margin-top: 100px;
+}
+
+.specialty-wrap h2 {
+    margin-bottom: 4vw;
+    
+    font-size: 2.5vw;
+    font-weight: 600;
+
+    position: absolute;
+    transform: translateX(182%);
+    transition: all 0.5s;
+}
+
+.specialty-items {
+    display: flex;
+    justify-content: space-evenly;
+
+    position: absolute;
+    transform: translateY(38%);
+    transition: all 0.3s;
+}
+
+.specialty-item {
+    width: 20vw;
+}
+
+.specialty-item img {
+    width: 16vw;
+    border-radius: 100px;
+}
+
+.specialty-item p {
+    text-align: center;
+
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size: 1.2vw;
+    font-weight: 600;
+    color: #EFBED9;
+
+    margin-top: 2vw;
+}
+
+.specialty-wrap .appeal{
+    font-size: 1.5vw;
+    font-weight: 500;
+    
+    position: absolute;
+    transform: translateX(38%) translateY(300%);
+    opacity: 0;
+    transition: all 0.3s;
+
+}
+
+.transition:hover .specialty-items {
+    transform: translateY(38%);
+    opacity: 0;
+}
+
+.transition:hover .appeal {
+    opacity: 1;
+    transform: translateX(38%) translateY(425%);
+}
+
+.transition:hover h2 {
+    transform: translateX(182%) translateY(226%);
+}
