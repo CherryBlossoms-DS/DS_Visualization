@@ -9,44 +9,6 @@ $('document').ready(() => {
     });
 });
 
-
-// function print_vis_list(print_list) {
-//     let idx = 0;
-
-//     while (idx < print_list.length) {
-//         document.write('<div class="row vis-warp">');
-
-//         for (let i = 0; i < 3; i++) {
-//             document.write(
-//                 '<div class="vis-container">' +
-//                     '<a href="#">' +
-//                         '<img src="' + print_list[idx].url + '" class="img-rounded vis-img" alt="정렬">' +
-//                     '</a>' +
-//                     '<p>' + print_list[idx].name + '</p>' +
-//                     '<tag>');
-//                         for (let j = 0; j < print_list[idx].tag.length; j++) {
-//                             document.write(
-//                                 '<button>' +
-//                                     print_list[idx].tag[j] +
-//                                 '</button>'
-//                             );
-//                         }
-//             document.write(
-//                     '</tag>' +
-//                 '</div>'
-//             )
-
-//             idx++;
-
-//             if (idx > print_list.length) {
-//                 break;
-//             }
-//         }
-
-//         document.write('</div>');
-//     }
-// }
-
 function print_vis_list(print_list) {
     if(print_list.length == 0) {
         return '';
@@ -114,7 +76,7 @@ $("#search_input").keyup(() => {
         document.getElementById('vis-list').innerHTML = print_vis_list(print_list);
     }
     else {
-        document.getElementById('vis-list').innerHTML = print_vis_list(vis_list)
+        document.getElementById('vis-list').innerHTML = print_vis_list(vis_list);
     }
 })
 
