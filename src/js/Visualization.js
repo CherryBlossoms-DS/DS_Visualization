@@ -24,8 +24,8 @@ function print_vis_list(print_list) {
             console.log(idx);
             innerHTML +=
                 '<div class="vis-container">' +
-                    '<a href="#">' +
-                        '<img src="' + print_list[idx].url + '" class="img-rounded vis-img" alt="정렬">' +
+                    '<a href="' + print_list[idx].url + '">' +
+                        '<img src="' + print_list[idx].imgPath + '" class="img-rounded vis-img" alt="정렬">' +
                     '</a>' +
                     '<p>' + print_list[idx].name + '</p>' +
                     '<tag>';
