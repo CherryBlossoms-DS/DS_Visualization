@@ -8,11 +8,7 @@ body {
     /* Main Page (fixed) */
     position: relative;
     color: #EFBED9;
-<<<<<<< Updated upstream
-    font-family: 'Montserrat', sans-serif;
-=======
     font-family: 'IBM Plex Sans KR', sans-serif;
->>>>>>> Stashed changes
     font-size: 10px;
     font-weight: 700;
     line-height: 44px;
@@ -21,10 +17,18 @@ body {
 
 .bg-1 {
     /* main banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 85vh;
     background-color: rgb(66, 66, 66);
     text-align: center;
     font-size: 5em;
+}
+
+.bg-1 img {
+    height: 54%;
 }
 
 .bg-2 {
@@ -36,35 +40,29 @@ body {
 }
 
 .bg-2 h1 {
-    margin-top: 105px;
-    margin-bottom: 30px;
-    font-size: 38px;
+    margin-top: 7vw;
+    margin-bottom: 3vw;
 }
 
 .vis-container p {
     margin-top: 0.5vw;
     color: white;
-<<<<<<< Updated upstream
-    font-size: 1.4vw;
-    font-weight: bold;
-=======
+
     font-size: 1.6vw;
     font-weight: 600;
->>>>>>> Stashed changes
     text-align: center;
 }
 
 .bg-3 {
     color: black;
-    background-color: #F4F4F4;
-    height: 700px;
+    background-color: #e7e5e5;
 
-    padding-top: 89px;
+    padding-top: 6vw;
+    padding-bottom: 6vw;
 }
 
 .vis {
-    margin: 0 30px 65px;
-
+    margin: 0 5vw 4vw;
 }
 
 .vis-warp {
@@ -84,6 +82,8 @@ body {
 }
 
 .vis-btn {
+    line-height: initial;
+
     background-color: #666666;
     border: 0.3vw solid white;
     border-radius: 138px;
@@ -93,30 +93,28 @@ body {
 }
 
 .text-init {
-    font-family: 'Montserrat';
+    font-family: 'IBM Plex Sans KR', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 45px;
-    line-height: 55px;
+    font-size: 3vw;
     letter-spacing: -0.015em;
 }
 
 .text-init3 {
-    font-family: 'Montserrat';
+    font-family: 'IBM Plex Sans KR', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 39px;
-    line-height: 48px;
+    font-size: 2.4vw;
     letter-spacing: -0.015em;
 }
 
 .text-init4 {
-    font-family: 'Montserrat';
+    font-family: 'IBM Plex Sans KR', sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 27px;
-    line-height: 39px;
+    font-size: 2vw;
     letter-spacing: -0.015em;
+    line-height: 1.3;
 }
 
 .vis-btn a {
@@ -134,39 +132,45 @@ body {
 }
 
 .about-btn {
-    margin-top: 60px;
+    line-height: initial;
     background-color: #F4F4F4;
-    border: 2px solid rgb(241, 169, 169);
-    border-radius: 30px;
+    border: 0.3vw solid rgb(241, 169, 169);
+    border-radius: 138px;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 2vw;    
+    padding: 0.4vw 2.3vw;
 }
 
 .about-btn a {
     color: black;
+    text-decoration: none;
 }
 
 .about-btn a:hover {
+    color: rgb(241, 169, 169);
     text-decoration: none;
-    /* color: #ffffff; */
+}
+
+.about-btn a:active {
+    text-decoration: none;
 }
 
 footer {
-    height: 200px;
-    background-color: #666666;
+    /* height: 200px;
+    background-color: #666666; */
 }
 
 .text-loc :nth-child(1) {
     margin: 0;
-    margin-bottom: 84px;
+    margin-bottom: 9vw;
 }
 
 .text-loc :nth-child(2) {
     margin: 0;
-    margin-bottom: 17px;
+    margin-bottom: 1.7vw;
 }
 
 .text-loc :last-child {
     margin: 0;
-    margin-bottom: 84px;
+    margin-bottom: 4vmax;
 }
