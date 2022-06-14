@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../src/css/Navbar.css">
+        <link rel="stylesheet" href="../css/canvas.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <img id="tracking"src="" alt="" width="1" height="1">
+        <script type="text/javascript" src="tracking.js"></script> 
+        
+        <!-- Navgiation Bar -->
+        <nav class="navbar navbar-default navbar-custom1">
+            <div class="container navbar-custom2">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="Main.html" style="color: #EFBED9;">Logo</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navBar">
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a href="About.html" style="color: #EFBED9;">About</a></li>
+                    <li><a href="Visualization.html" style="color: #EFBED9;">Visualization</a></li>
+                    <li><a href="Analysis.html" style="color: #EFBED9;">Analysis</a></li>
+                    <li><a href="Support.html" style="color: #EFBED9;">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1>이진 검색 트리</h1>
+
+        <div id="canvas">
+            <form id="input_form">
+                <input type="text" id="input_field" placeholder="값">
+                <input id="insert_btn" type="button" value="추가" onclick="makeCircle()">
+                <input id="search_btn" type="button" value="찾기" onclick="BSTsearch()">
+                <input id="delete_btn" type="button" value="삭제" onclick="BSTdelete()">
+            </form>
+            <canvas id="tutorial"></canvas>
+        </div>
+    </body>
+</html>
+
+<script src="canvas.js"></script>
