@@ -1,10 +1,10 @@
-google.charts.load('current', {'packages':['bar']});
+google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
   (async function(){
+    //이벤트 카테고리에 자료구조 이름, 이벤트 라벨에 위치값이 들어가 있는 애널리틱스 정보 url
     let url='your analytics query url'
-    //세션 수로 탐색, 로드 한번당 세션 +1?
     const res=await fetch(url);
     const arr=(await res.json())['rows'];
     let tmp=[];
@@ -15,24 +15,33 @@ function drawChart() {
       }
       else {
           prev=arr[i][0];
-          tmp.push([arr[i][0],parseInt(arr[i][2])]);
+          tmp.push([arr[i][0],parseInt(arr[i][2]),'#EFBED9']);
       }
     }
-    console.log(tmp);
-    chartData=[["자료구조","방문자 수"]].concat(tmp);
-
+    chartData=[["자료구조","방문자 수",{ role: 'style' }]].concat(tmp);
     var data = google.visualization.arrayToDataTable(chartData);
-
     var options = {
-      chart: {
-        title: '',
-        subtitle: '',
-      }
+      chartArea: {
+        width: '90%',
+        height:'80%'
+      },
+      backgroundColor: 'none',
+      legend: 'none',
+      vAxis: {
+        baselineColor: 'white',
+        gridlineColor: 'white',
+        textStyle:{color: 'white'}
+      },
+      hAxis: {
+        baselineColor: 'white',
+        gridlineColor: 'white',
+        textStyle:{color: 'white'}
+      },
     };
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
 
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+    chart.draw(data, options);
   })();
 
 
