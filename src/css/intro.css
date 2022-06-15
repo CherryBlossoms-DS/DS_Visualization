@@ -1,0 +1,58 @@
+.intro_position {
+    background-color: #323232;
+
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 101;
+    line-height: 3.9vw;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.intro_container {
+    position: relative;
+}
+
+.intro_center {
+    margin: auto;
+}
+
+.intro_center:first-child {
+    margin-bottom: 0;
+}
+
+.intro_center:last-child {
+    margin-top: 0;
+}
+
+.intro_container .text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 4vw;
+    font-weight: bold;
+    color:#efbed9;
+}
+
+.intro_container .text_hide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #323232;
+    /* 대표색으로 변경 */
+}
+
+.intro_container .text_cursor {
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: transparent;
+    border-left: 3px solid white;
+}
