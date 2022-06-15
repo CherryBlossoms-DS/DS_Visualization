@@ -8,7 +8,7 @@ var mouseY = 0;
 var zoom = 1;
 
 function init() {
-  const canvas = document.getElementById("canvas");
+  const canvas = document.getElementById("tutorial");
   ctx = canvas.getContext("2d");
   ctx.font = "14px arial";
   ctx.textAlign = "center";
