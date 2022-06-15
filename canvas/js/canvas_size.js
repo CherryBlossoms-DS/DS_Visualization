@@ -1,5 +1,11 @@
+let canvas= document.getElementById('tutorial');
+let ctx=canvas.getContext('2d');
+
 ctx.canvas.width = $(window).width() * 0.95;
 ctx.canvas.height = $(window).height() * 0.8;
+
+ctx.textBaseline = 'middle';
+ctx.textAlign = 'center';
 
 window.addEventListener('resize', () => {
     let imageData = canvas.toDataURL();
