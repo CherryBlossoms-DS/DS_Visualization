@@ -1,6 +1,6 @@
 var x;
 var count = 0;
-var ctx;
+var this_ctx;
 var valueArr = [];
 var click = false;
 var mouseX = 0;
@@ -8,41 +8,41 @@ var mouseY = 0;
 var zoom = 1;
 
 function init() {
-  const canvas = document.getElementById("tutorial");
-  ctx = canvas.getContext("2d");
-  ctx.font = "14px arial";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+  const this_canvas = document.getElementById("tutorial");
+  this_ctx = this_canvas.getContext("2d");
+  this_ctx.font = "14px arial";
+  this_ctx.textAlign = "center";
+  this_ctx.textBaseline = "middle";
 
-  canvas.addEventListener("mousedown", (e) => {
+  this_canvas.addEventListener("mousedown", (e) => {
     click = true;
     mouseX = e.clientX;
     mouseY = e.clientY;
   });
 
-  canvas.addEventListener("mouseup", (e) => {
+  this_canvas.addEventListener("mouseup", (e) => {
     click = false;
   });
 
-  canvas.addEventListener("mousemove", async (e) => {
+  this_canvas.addEventListener("mousemove", async (e) => {
     if (click) {
       await sleep20ms();
-      ctx.clearRect(0, 0, 1000 * zoom, 1000 * zoom);
-      ctx.translate(e.clientX - mouseX, e.clientY - mouseY);
+      this_ctx.clearRect(0, 0, 1000 * zoom, 1000 * zoom);
+      this_ctx.translate(e.clientX - mouseX, e.clientY - mouseY);
       mouseX = e.clientX;
       mouseY = e.clientY;
       draw();
     }
   });
 
-  canvas.addEventListener("wheel", async (e) => {
+  this_canvas.addEventListener("wheel", async (e) => {
     if (e.wheelDelta < 0) {
       zoom *= 0.95;
     } else {
       zoom /= 0.95;
     }
     await sleep20ms();
-    ctx.clearRect(0, 0, 1000 * zoom, 1000 * zoom);
+    this_ctx.clearRect(0, 0, 1000 * zoom, 1000 * zoom);
     draw();
   });
 }
@@ -67,55 +67,55 @@ function sleep20ms() {
 
 //현재 x값에 따라 Head 노드를 표시
 function drawHead() {
-  ctx.beginPath();
-  ctx.moveTo(x * zoom, 180 * zoom);
-  ctx.lineTo(x * zoom, 145 * zoom);
-  ctx.moveTo(x * zoom - 10 * zoom, 155 * zoom);
-  ctx.lineTo(x * zoom, 145 * zoom);
-  ctx.moveTo(x * zoom + 10 * zoom, 155 * zoom);
-  ctx.lineTo(x * zoom, 145 * zoom);
-  ctx.stroke();
-  ctx.fillText("머리", x * zoom, 200 * zoom);
+  this_ctx.beginPath();
+  this_ctx.moveTo(x * zoom, 180 * zoom);
+  this_ctx.lineTo(x * zoom, 145 * zoom);
+  this_ctx.moveTo(x * zoom - 10 * zoom, 155 * zoom);
+  this_ctx.lineTo(x * zoom, 145 * zoom);
+  this_ctx.moveTo(x * zoom + 10 * zoom, 155 * zoom);
+  this_ctx.lineTo(x * zoom, 145 * zoom);
+  this_ctx.stroke();
+  this_ctx.fillText("머리", x * zoom, 200 * zoom);
 }
 
 //현재 x값에 따라 Tail 노드를 표시
 function drawTail() {
-  ctx.beginPath();
-  ctx.moveTo(x * zoom, 60 * zoom);
-  ctx.lineTo(x * zoom, 95 * zoom);
-  ctx.moveTo((x - 10) * zoom, 85 * zoom);
-  ctx.lineTo(x * zoom, 95 * zoom);
-  ctx.moveTo((x + 10) * zoom, 85 * zoom);
-  ctx.lineTo(x * zoom, 95 * zoom);
-  ctx.stroke();
-  ctx.fillText("꼬리", x * zoom, 40 * zoom);
+  this_ctx.beginPath();
+  this_ctx.moveTo(x * zoom, 60 * zoom);
+  this_ctx.lineTo(x * zoom, 95 * zoom);
+  this_ctx.moveTo((x - 10) * zoom, 85 * zoom);
+  this_ctx.lineTo(x * zoom, 95 * zoom);
+  this_ctx.moveTo((x + 10) * zoom, 85 * zoom);
+  this_ctx.lineTo(x * zoom, 95 * zoom);
+  this_ctx.stroke();
+  this_ctx.fillText("꼬리", x * zoom, 40 * zoom);
 }
 
 //현재 x값에 따라 원을 그림
 function drawCircle(value) {
-  ctx.beginPath();
-  ctx.arc(x * zoom, 120 * zoom, 20 * zoom, 0, Math.PI * 2, false);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fillText(value, x * zoom, 120 * zoom);
+  this_ctx.beginPath();
+  this_ctx.arc(x * zoom, 120 * zoom, 20 * zoom, 0, Math.PI * 2, false);
+  this_ctx.closePath();
+  this_ctx.stroke();
+  this_ctx.fillText(value, x * zoom, 120 * zoom);
 }
 
 //현재 x값에 따라 화살표를 그림
 function drawArrow() {
-  ctx.beginPath();
-  ctx.moveTo((x + 20) * zoom, 120 * zoom);
-  ctx.lineTo((x + 70) * zoom, 120 * zoom);
-  ctx.moveTo((x + 60) * zoom, 110 * zoom);
-  ctx.lineTo((x + 70) * zoom, 120 * zoom);
-  ctx.moveTo((x + 60) * zoom, 130 * zoom);
-  ctx.lineTo((x + 70) * zoom, 120 * zoom);
-  ctx.stroke();
+  this_ctx.beginPath();
+  this_ctx.moveTo((x + 20) * zoom, 120 * zoom);
+  this_ctx.lineTo((x + 70) * zoom, 120 * zoom);
+  this_ctx.moveTo((x + 60) * zoom, 110 * zoom);
+  this_ctx.lineTo((x + 70) * zoom, 120 * zoom);
+  this_ctx.moveTo((x + 60) * zoom, 130 * zoom);
+  this_ctx.lineTo((x + 70) * zoom, 120 * zoom);
+  this_ctx.stroke();
 }
 
 //index값에 따른 위치에 특정 노드를 분홍색으로 표시
 function fillCircle(index, target) {
-  ctx.beginPath();
-  ctx.arc(
+  this_ctx.beginPath();
+  this_ctx.arc(
     (50 + index * 90) * zoom,
     120 * zoom,
     20 * zoom,
@@ -123,18 +123,18 @@ function fillCircle(index, target) {
     Math.PI * 2,
     false
   );
-  ctx.closePath();
-  ctx.fillStyle = "rgba(255,182,193, 0.3)";
+  this_ctx.closePath();
+  this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-  ctx.fill();
-  ctx.fillStyle = "black";
-  ctx.fillText(target, (50 + index * 90) * zoom, 120 * zoom);
+  this_ctx.fill();
+  this_ctx.fillStyle = "black";
+  this_ctx.fillText(target, (50 + index * 90) * zoom, 120 * zoom);
 }
 
 //현재 valueArr에 대해 모든 원소를 연결 리스트로 표현. x값 50으로 초기화
 function draw() {
   console.log(valueArr);
-  ctx.clearRect(0, 0, 1000, 1000);
+  this_ctx.clearRect(0, 0, 1000, 1000);
   x = 50;
 
   drawHead();
@@ -150,7 +150,7 @@ function draw() {
 
 //head에 원소 추가 시 기존 valueArr를 오른쪽으로 민 상태
 function drawOriginToRight() {
-  ctx.clearRect(0, 0, 1000, 1000);
+  this_ctx.clearRect(0, 0, 1000, 1000);
   x = 140;
   drawHead();
   valueArr.map((value, idx) => {
@@ -170,7 +170,7 @@ async function insertHead() {
   if (valueArr.length != 0) {
     for (i = 0; i < 95 * zoom; i += 5 * zoom) {
       await sleep20ms();
-      ctx.clearRect(0, 0, 1000, 1000);
+      this_ctx.clearRect(0, 0, 1000, 1000);
       x = 50;
       x += i;
 
@@ -188,23 +188,23 @@ async function insertHead() {
     for (i = 0; i < 65 * zoom; i += 5 * zoom) {
       await sleep20ms();
       drawOriginToRight();
-      ctx.beginPath();
-      ctx.arc(50 * zoom, (180 - i) * zoom, 20 * zoom, 0, Math.PI * 2, false);
-      ctx.closePath();
-      ctx.fillStyle = "rgba(255,182,193, 0.3)";
+      this_ctx.beginPath();
+      this_ctx.arc(50 * zoom, (180 - i) * zoom, 20 * zoom, 0, Math.PI * 2, false);
+      this_ctx.closePath();
+      this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-      ctx.fill();
-      ctx.fillStyle = "black";
-      ctx.fillText(value, 50 * zoom, (180 - i) * zoom);
+      this_ctx.fill();
+      this_ctx.fillStyle = "black";
+      this_ctx.fillText(value, 50 * zoom, (180 - i) * zoom);
 
-      ctx.beginPath();
-      ctx.moveTo(70 * zoom, (180 - i) * zoom);
-      ctx.lineTo(120 * zoom, (180 - i) * zoom);
-      ctx.moveTo(110 * zoom, (170 - i) * zoom);
-      ctx.lineTo(120 * zoom, (180 - i) * zoom);
-      ctx.moveTo(110 * zoom, (190 - i) * zoom);
-      ctx.lineTo(120 * zoom, (180 - i) * zoom);
-      ctx.stroke();
+      this_ctx.beginPath();
+      this_ctx.moveTo(70 * zoom, (180 - i) * zoom);
+      this_ctx.lineTo(120 * zoom, (180 - i) * zoom);
+      this_ctx.moveTo(110 * zoom, (170 - i) * zoom);
+      this_ctx.lineTo(120 * zoom, (180 - i) * zoom);
+      this_ctx.moveTo(110 * zoom, (190 - i) * zoom);
+      this_ctx.lineTo(120 * zoom, (180 - i) * zoom);
+      this_ctx.stroke();
     }
   }
 
@@ -223,8 +223,8 @@ async function insertTail() {
     for (i = 0; i < 65 * zoom; i += 5 * zoom) {
       await sleep20ms();
       draw();
-      ctx.beginPath();
-      ctx.arc(
+      this_ctx.beginPath();
+      this_ctx.arc(
         (50 + index * 90) * zoom,
         (180 - i) * zoom,
         20 * zoom,
@@ -232,21 +232,21 @@ async function insertTail() {
         Math.PI * 2,
         false
       );
-      ctx.closePath();
-      ctx.fillStyle = "rgba(255,182,193, 0.3)";
+      this_ctx.closePath();
+      this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-      ctx.fill();
-      ctx.fillStyle = "black";
-      ctx.fillText(value, (50 + index * 90) * zoom, (180 - i) * zoom);
+      this_ctx.fill();
+      this_ctx.fillStyle = "black";
+      this_ctx.fillText(value, (50 + index * 90) * zoom, (180 - i) * zoom);
 
-      ctx.beginPath();
-      ctx.moveTo(((index - 1) * 90 + 70) * zoom, (180 - i) * zoom);
-      ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.moveTo(((index - 1) * 90 + 110) * zoom, (170 - i) * zoom);
-      ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.moveTo(((index - 1) * 90 + 110) * zoom, (190 - i) * zoom);
-      ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.stroke();
+      this_ctx.beginPath();
+      this_ctx.moveTo(((index - 1) * 90 + 70) * zoom, (180 - i) * zoom);
+      this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.moveTo(((index - 1) * 90 + 110) * zoom, (170 - i) * zoom);
+      this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.moveTo(((index - 1) * 90 + 110) * zoom, (190 - i) * zoom);
+      this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.stroke();
     }
   }
   await sleep20ms();
@@ -260,7 +260,7 @@ function drawInsertStep1(index) {
   const rightArr = valueArr.slice(Number(index));
   console.log(`leftArr: ${leftArr},rightArr:${rightArr}`);
 
-  ctx.clearRect(0, 0, 1000, 1000);
+  this_ctx.clearRect(0, 0, 1000, 1000);
   x = 50;
   drawHead();
   leftArr.map((value, idx) => {
@@ -303,7 +303,7 @@ async function insert() {
 
     for (i = 0; i < 95 * zoom; i += 5 * zoom) {
       await sleep20ms();
-      ctx.clearRect(0, 0, 1000, 1000);
+      this_ctx.clearRect(0, 0, 1000, 1000);
       x = 50;
 
       drawHead();
@@ -331,8 +331,8 @@ async function insert() {
     for (i = 0; i < 65 * zoom; i += 5 * zoom) {
       await sleep20ms();
       drawInsertStep1(index);
-      ctx.beginPath();
-      ctx.arc(
+      this_ctx.beginPath();
+      this_ctx.arc(
         (50 + index * 90) * zoom,
         (180 - i) * zoom,
         20 * zoom,
@@ -340,21 +340,21 @@ async function insert() {
         Math.PI * 2,
         false
       );
-      ctx.closePath();
-      ctx.fillStyle = "rgba(255,182,193, 0.3)";
+      this_ctx.closePath();
+      this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-      ctx.fill();
-      ctx.fillStyle = "black";
-      ctx.fillText(value, (50 + index * 90) * zoom, (180 - i) * zoom);
+      this_ctx.fill();
+      this_ctx.fillStyle = "black";
+      this_ctx.fillText(value, (50 + index * 90) * zoom, (180 - i) * zoom);
 
-      ctx.beginPath();
-      ctx.moveTo((index * 90 + 70) * zoom, (180 - i) * zoom);
-      ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.moveTo((index * 90 + 110) * zoom, (170 - i) * zoom);
-      ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.moveTo((index * 90 + 110) * zoom, (190 - i) * zoom);
-      ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
-      ctx.stroke();
+      this_ctx.beginPath();
+      this_ctx.moveTo((index * 90 + 70) * zoom, (180 - i) * zoom);
+      this_ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.moveTo((index * 90 + 110) * zoom, (170 - i) * zoom);
+      this_ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.moveTo((index * 90 + 110) * zoom, (190 - i) * zoom);
+      this_ctx.lineTo((index * 90 + 120) * zoom, (180 - i) * zoom);
+      this_ctx.stroke();
     }
     await sleep20ms();
     valueArr.splice(index, 0, value);
@@ -394,8 +394,8 @@ async function remove() {
           await sleep20ms();
           drawOriginToRight();
 
-          ctx.beginPath();
-          ctx.arc(
+          this_ctx.beginPath();
+          this_ctx.arc(
             50 * zoom,
             (120 + i) * zoom,
             20 * zoom,
@@ -403,26 +403,26 @@ async function remove() {
             Math.PI * 2,
             false
           );
-          ctx.closePath();
-          ctx.fillStyle = "rgba(255,182,193, 0.3)";
-          ctx.fill();
-          ctx.fillStyle = "black";
-          ctx.fillText(value, 50 * zoom, (120 + i) * zoom);
+          this_ctx.closePath();
+          this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
+          this_ctx.fill();
+          this_ctx.fillStyle = "black";
+          this_ctx.fillText(value, 50 * zoom, (120 + i) * zoom);
 
-          ctx.moveTo(70 * zoom, (120 + i) * zoom);
-          ctx.lineTo(120 * zoom, (120 + i) * zoom);
-          ctx.moveTo(110 * zoom, (110 + i) * zoom);
-          ctx.lineTo(120 * zoom, (120 + i) * zoom);
-          ctx.moveTo(110 * zoom, (130 + i) * zoom);
-          ctx.lineTo(120 * zoom, (120 + i) * zoom);
-          ctx.stroke();
+          this_ctx.moveTo(70 * zoom, (120 + i) * zoom);
+          this_ctx.lineTo(120 * zoom, (120 + i) * zoom);
+          this_ctx.moveTo(110 * zoom, (110 + i) * zoom);
+          this_ctx.lineTo(120 * zoom, (120 + i) * zoom);
+          this_ctx.moveTo(110 * zoom, (130 + i) * zoom);
+          this_ctx.lineTo(120 * zoom, (120 + i) * zoom);
+          this_ctx.stroke();
         }
         await sleep20ms();
         drawOriginToRight();
 
         for (i = 0; i < 95 * zoom; i += 5 * zoom) {
           await sleep20ms();
-          ctx.clearRect(0, 0, 1000, 1000);
+          this_ctx.clearRect(0, 0, 1000, 1000);
           x = 140;
           x -= i;
           drawHead();
@@ -439,8 +439,8 @@ async function remove() {
         for (i = 0; i < 65 * zoom; i += 5 * zoom) {
           await sleep20ms();
           draw();
-          ctx.beginPath();
-          ctx.arc(
+          this_ctx.beginPath();
+          this_ctx.arc(
             (50 + index * 90) * zoom,
             (120 + i) * zoom,
             20 * zoom,
@@ -448,21 +448,21 @@ async function remove() {
             Math.PI * 2,
             false
           );
-          ctx.closePath();
-          ctx.fillStyle = "rgba(255,182,193, 0.3)";
+          this_ctx.closePath();
+          this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
 
-          ctx.fill();
-          ctx.fillStyle = "black";
-          ctx.fillText(value, (50 + index * 90) * zoom, (120 + i) * zoom);
+          this_ctx.fill();
+          this_ctx.fillStyle = "black";
+          this_ctx.fillText(value, (50 + index * 90) * zoom, (120 + i) * zoom);
 
-          ctx.beginPath();
-          ctx.moveTo(((index - 1) * 90 + 70) * zoom, (120 + i) * zoom);
-          ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.moveTo(((index - 1) * 90 + 110) * zoom, (110 + i) * zoom);
-          ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.moveTo(((index - 1) * 90 + 110) * zoom, (130 + i) * zoom);
-          ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.stroke();
+          this_ctx.beginPath();
+          this_ctx.moveTo(((index - 1) * 90 + 70) * zoom, (120 + i) * zoom);
+          this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.moveTo(((index - 1) * 90 + 110) * zoom, (110 + i) * zoom);
+          this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.moveTo(((index - 1) * 90 + 110) * zoom, (130 + i) * zoom);
+          this_ctx.lineTo(((index - 1) * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.stroke();
         }
         await sleep20ms();
         draw();
@@ -471,8 +471,8 @@ async function remove() {
           await sleep20ms();
           drawInsertStep1(index);
 
-          ctx.beginPath();
-          ctx.arc(
+          this_ctx.beginPath();
+          this_ctx.arc(
             (50 + index * 90) * zoom,
             (120 + i) * zoom,
             20 * zoom,
@@ -480,26 +480,26 @@ async function remove() {
             Math.PI * 2,
             false
           );
-          ctx.closePath();
-          ctx.fillStyle = "rgba(255,182,193, 0.3)";
-          ctx.fill();
-          ctx.fillStyle = "black";
-          ctx.fillText(value, (50 + index * 90) * zoom, (120 + i) * zoom);
+          this_ctx.closePath();
+          this_ctx.fillStyle = "rgba(255,182,193, 0.3)";
+          this_ctx.fill();
+          this_ctx.fillStyle = "black";
+          this_ctx.fillText(value, (50 + index * 90) * zoom, (120 + i) * zoom);
 
-          ctx.moveTo((index * 90 + 70) * zoom, (120 + i) * zoom);
-          ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.moveTo((index * 90 + 110) * zoom, (110 + i) * zoom);
-          ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.moveTo((index * 90 + 110) * zoom, (130 + i) * zoom);
-          ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
-          ctx.stroke();
+          this_ctx.moveTo((index * 90 + 70) * zoom, (120 + i) * zoom);
+          this_ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.moveTo((index * 90 + 110) * zoom, (110 + i) * zoom);
+          this_ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.moveTo((index * 90 + 110) * zoom, (130 + i) * zoom);
+          this_ctx.lineTo((index * 90 + 120) * zoom, (120 + i) * zoom);
+          this_ctx.stroke();
         }
 
         drawInsertStep1(index);
 
         for (i = 0; i < 95; i += 5) {
           await sleep20ms();
-          ctx.clearRect(0, 0, 1000, 1000);
+          this_ctx.clearRect(0, 0, 1000, 1000);
           x = 50;
 
           drawHead();
