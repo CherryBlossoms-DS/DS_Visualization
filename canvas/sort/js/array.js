@@ -2,13 +2,14 @@ const BAR_WIDTH=30;
 const OFFSET=5;
 const BAR_MAX_SIZE=200;
 const BAR_Y=200;
-const COLOR={'select':'lightblue', 'fixed':'orange','none':'default'};
+const COLOR={'select':'#B69DFF', 'fixed':'#F5B26C','none':'default'};
 
 class array {
   constructor(canvas,arr) {
     let maxv=Math.max(...arr)
 
     this.ctx=canvas.getContext("2d");
+    this.canvas=canvas;
     this.width=canvas.width;
     this.height=canvas.height;
     this.numArr=arr;
@@ -25,7 +26,7 @@ class array {
   clear(){
     this.ctx.save();
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-    this.ctx.clearRect(0,0,this.width,this.height);
+    this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
     this.ctx.restore();
   }
 
@@ -36,19 +37,9 @@ class array {
   /*bar들을을 전부 캔버스에 그림*/
   draw(){
     this.clear();
-
-    //TODO: 아래 배열 그리기 수정
-    //let x=5
-    //this.ctx.fillStyle="gray";
-    //this.ctx.font=20+"px Georgia";
-    //this.ctx.fillText("[",x,300);
     for(let i=0;i<this.arr.length;i++){
       this.arr[i].draw();
-
-      //this.ctx.fillText(this.arr[i].getValue(),x+20*(i+1),300);
     }
-    //this.ctx.fillStyle="gray";
-    //this.ctx.fillText(']',x+20*(this.arr.length+1),300);
   }
 
   /*

@@ -2,18 +2,55 @@
 <html>
   <head>
     <title>선택 정렬</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../src/css/Navbar.css">
+    <link rel="stylesheet" href="../css/canvas.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <br><br><br>
+    <!-- Navgiation Bar -->
+    <nav class="navbar navbar-default navbar-custom1">
+        <div class="container navbar-custom2">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="Main.html" style="color: #EFBED9;">Logo</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="About.html" style="color: #EFBED9;">About</a></li>
+                <li><a href="Visualization.html" style="color: #EFBED9;">Visualization</a></li>
+                <li><a href="Analysis.html" style="color: #EFBED9;">Analysis</a></li>
+                <li><a href="Support.html" style="color: #EFBED9;">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <img id="tracking"src="" alt="" width="1" height="1">
-    <script type="text/javascript" src="./js/selectionSort/tracking.js"></script>
-    <input id="arrText" type="text" value="1,4,3,4,5,2,1">
-    <button id="makeBtn" type="button" name="button">배열 제작</button>
-    <button id="sortBtn" type="button" name="button">정렬</button><br>
-    <canvas id="canvas" width="900px" height="800px" style="margin: 10px; border:1px solid black;">test</canvas>
+    <script type="text/javascript" src="./js/bubbleSort/tracking.js"></script>
+
+    <h1>선택 정렬</h1>
+
+    <div id="canvas" width="100%">
+        <form id="input_form">
+            <input id="arrText" type="text" value="1,4,3,4,5,2,1" style="width: 120px;">
+            <input id="makeBtn" type="button" value="배열 제작">
+            <input id="sortBtn" type="button" value="정렬" >
+        </form>
+        <canvas id="tutorial"></canvas>
+
+    </div>
     <script type="text/javascript" src="./js/bar.js"></script>
     <script type="text/javascript" src="./js/animationHelper.js"></script>
     <script type="text/javascript" src="./js/array.js"></script>
     <script type="text/javascript" src="./js/selectionSort/control.js"></script>
+    <script src="../js/canvas_size.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const DEFAULT_COLOR="red";
+const DEFAULT_COLOR="#F0A5D2";
 
 class bar {
   /*
@@ -28,7 +28,8 @@ class bar {
 
     this.rate=value/maxv;
 
-    this.fontSize=width-10;
+    this.textOffset=15;
+    this.fontSize=width-this.textOffset;
   }
 
   /*
@@ -39,8 +40,8 @@ class bar {
     this.ctx.fillStyle=this.color;
     //현재 위치에서 위쪽으로 그려짐
     this.ctx.fillRect(this.posx,this.posy,this.width,-this.size*this.rate);
-    this.ctx.font=this.fontSize+"px Georgia";
-    this.ctx.fillText(this.value,this.posx,this.posy+this.fontSize);
+    this.ctx.font=this.fontSize+"px IBM Plex Sans KR";
+    this.ctx.fillText(this.value,this.posx+this.textOffset,this.posy+(this.fontSize*0.6));
   }
 
   setColor(color){
@@ -70,6 +71,7 @@ class bar {
     this.size*=rate;
     this.posx*=rate;
     this.fontSize*=rate;
+    this.textOffset*=rate;
   }
 
 }

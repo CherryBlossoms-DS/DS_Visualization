@@ -26,7 +26,7 @@ class controler{
 
     this.setArray();
 
-    this.arr.draw();
+    setTimeout(()=>{this.arr.draw();},100);
     this.registerEventListener();
   }
 
@@ -140,7 +140,7 @@ function init(){
   let arrText=document.getElementById("arrText");
   let makeBtn=document.getElementById("makeBtn");
   let sortBtn=document.getElementById("sortBtn");
-  let canvas=document.getElementById("canvas");
+  let canvas=document.getElementById("tutorial");
 
   let tmp = new controler(canvas,arrText,makeBtn,sortBtn);
 
