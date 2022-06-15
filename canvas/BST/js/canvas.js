@@ -1,18 +1,18 @@
 // TODO: Placeholder
 // TODO: input text 비우기
 
-var canvas = document.getElementById("tutorial");
+var this_canvas = document.getElementById("tutorial");
 
-if (!canvas.getContext) {
+if (!this_canvas.getContext) {
     alert('지원하지 않는 브라우저입니다.');
 }
 
-var ctx = canvas.getContext('2d');
-ctx.textBaseline = 'middle';
-ctx.textAlign = 'center';
+var this_ctx = this_canvas.getContext('2d');
+this_ctx.textBaseline = 'middle';
+this_ctx.textAlign = 'center';
 
 function ctx_clear(x, y, width, height) {
-    ctx.clearRect(x, y, width, height);
+    this_ctx.clearRect(x, y, width, height);
 }
 
 let animation_time = 500;
@@ -53,7 +53,7 @@ class Circle {
         }
 
         if (previous_node == null) {
-            this.x = canvas.width / 2;
+            this.x = this_canvas.width / 2;
             this.y = this.radius + 20;
 
             root_node = this;
@@ -88,30 +88,30 @@ class Circle {
         let start_y = ((this.radius + wheel_radius) * (r2.y - this.y)) / distance;        
 
         
-        ctx.beginPath();
-        ctx.moveTo(start_x + this.x, start_y + this.y);
-        ctx.lineTo(r2.x - start_x, r2.y - start_y);
+        this_ctx.beginPath();
+        this_ctx.moveTo(start_x + this.x, start_y + this.y);
+        this_ctx.lineTo(r2.x - start_x, r2.y - start_y);
 
-        ctx.strokeStyle = color;
-        ctx.stroke();
+        this_ctx.strokeStyle = color;
+        this_ctx.stroke();
 
         // Todo : Draw_Arrow
     }
 
     Draw_Circle(color) {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius + wheel_radius, 0, Math.PI * 2, true);
-        ctx.closePath();
+        this_ctx.beginPath();
+        this_ctx.arc(this.x, this.y, this.radius + wheel_radius, 0, Math.PI * 2, true);
+        this_ctx.closePath();
 
-        ctx.strokeStyle = color;
-        ctx.stroke();
+        this_ctx.strokeStyle = color;
+        this_ctx.stroke();
     }
 
     Draw_text(text) {
         let font_size = this.font_size + wheel_radius;
 
-        ctx.font = font_size + 'px sans-serif';
-        ctx.fillText(text, this.x, this.y);
+        this_ctx.font = font_size + 'px sans-serif';
+        this_ctx.fillText(text, this.x, this.y);
     }
 
     append_animation() {
@@ -148,7 +148,7 @@ class Circle {
     }
 
     Draw() {
-        ctx_clear(0, 0, canvas.width, canvas.height);
+        ctx_clear(0, 0, this_canvas.width, canvas.height);
 
         get_position(root_node, this);
         this.append_animation();
@@ -244,7 +244,7 @@ function BSTsearch() {
     }
 
     search_view_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
-    search_view_node.y = canvas.height - search_view_node.radius * 1.4 - wheel_radius * 2;
+    search_view_node.y = this_canvas.height - search_view_node.radius * 1.4 - wheel_radius * 2;
 
     search_text_node.x = search_view_node.radius * 1.4 + wheel_radius * 2; 
     search_text_node.y = search_view_node.y - 40 - wheel_radius * 1.4;
@@ -260,7 +260,7 @@ function BSTsearch() {
     let search_success = false;
     while (parent_node != null) {
         
-        setTimeout(ctx_clear, animation_time * cnt, 0, canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
+        setTimeout(ctx_clear, animation_time * cnt, 0, this_canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
         setTimeout(call_draw_Circle, animation_time * cnt, search_view_node, 'red');
         setTimeout(call_draw_text, animation_time * cnt, search_view_node, parent_node.text);
         setTimeout(call_draw_text, animation_time * cnt, search_text_node, 'Search');
@@ -296,7 +296,7 @@ function BSTsearch() {
     }
 
     if (search_success == false) {
-        setTimeout(ctx_clear, animation_time * cnt, 0, canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
+        setTimeout(ctx_clear, animation_time * cnt, 0, this_canvas.height - (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI, (search_view_node.radius + wheel_radius) * 2 * Math.PI);
         setTimeout(call_draw_Circle, animation_time * cnt, search_view_node, 'red');
         setTimeout(call_draw_text, animation_time * cnt, search_view_node, "NULL");
         setTimeout(call_draw_text, animation_time * cnt, search_text_node, 'Search')
@@ -307,7 +307,7 @@ function BSTsearch() {
     setTimeout(run_animation, animation_time * cnt, pre_node);
 }
 
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+this_ctx.clearRect(0, 0, this_canvas.width, canvas.height);
 
 let root_node;
 
@@ -319,7 +319,7 @@ var running = false;
 var x, y, clientX, clientY;
 
 
-canvas.addEventListener('mousedown', function(e) {
+this_canvas.addEventListener('mousedown', function(e) {
     if (!is_run_animation && !running) {
         raf = window.requestAnimationFrame(root_node.Draw);
         running = true;
@@ -333,8 +333,8 @@ canvas.addEventListener('mousedown', function(e) {
     }
 });
 
-canvas.addEventListener('mouseup', move_tree);
-canvas.addEventListener('mouseout', move_tree);
+this_canvas.addEventListener('mouseup', move_tree);
+this_canvas.addEventListener('mouseout', move_tree);
 function move_tree(e) {
     if (!is_run_animation && running) {
         window.cancelAnimationFrame(raf);
@@ -345,36 +345,36 @@ function move_tree(e) {
         //          트리의 양이 많아지면 wheel_radius를 줄이는 것을 고려해봅시다.
         if (root_node.x < 0) {
             root_node.x = root_node.radius * 1.5;
-        } else if (root_node.x > canvas.width) {
-            root_node.x = canvas.width - root_node.radius * 1.5;
+        } else if (root_node.x > this_canvas.width) {
+            root_node.x = this_canvas.width - root_node.radius * 1.5;
         }
 
         if (root_node.y < 0) {
             root_node.y = root_node.radius * 1.5;
-        } else if (root_node.y > canvas.height) {
-            root_node.y = canvas.height - root_node.radius * 1.5;
+        } else if (root_node.y > this_canvas.height) {
+            root_node.y = this_canvas.height - root_node.radius * 1.5;
         }
 
-        ctx_clear(0, 0, canvas.width, canvas.height);
+        ctx_clear(0, 0, this_canvas.width, this_canvas.height);
         get_position(root_node, null);
     }
 };
 
-canvas.addEventListener('mousemove', function(e) {
+this_canvas.addEventListener('mousemove', function(e) {
     if (!is_run_animation && running) {
         root_node.x = x + (e.clientX - clientX);
         root_node.y = y + (e.clientY - clientY);
-        ctx_clear(0, 0, canvas.width, canvas.height);
+        ctx_clear(0, 0, this_canvas.width, this_canvas.height);
         get_position(root_node, null);
     }
 });
 
-canvas.addEventListener('wheel', function(e) {
+this_canvas.addEventListener('wheel', function(e) {
     if (!is_run_animation) {
         wheel_radius += e.deltaY * 0.01;
 
         wheel_radius = (wheel_radius < -12 ? -12 : wheel_radius);
-        ctx_clear(0, 0, canvas.width, canvas.height);
+        ctx_clear(0, 0, this_canvas.width, this_canvas.height);
         get_position(root_node, null);
 
         console.log(wheel_radius);
