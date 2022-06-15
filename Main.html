@@ -8,15 +8,28 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="./src/css/Navbar.css">
   <link rel="stylesheet" href="./src/css/Main.css">
+  <link rel="stylesheet" href="./src/css/intro.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="./src/js/Visualization.js"></script>
-  
+  <script src="./src/js/Main.js"></script>
+
   <title>DS Visualization</title>
 </head>
 
 <body>
+
+  <div class="intro_position">
+    <div class="intro_center">
+      <div id="project_text" class="intro_container">
+        <div class="text_hide"></div>
+        <div class="text">DataStructure & Algorithm Visualization</div>
+        <div class="text_cursor"></div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Navgiation Bar -->
   <nav class="navbar navbar-default navbar-custom1">
@@ -46,7 +59,7 @@
 
   <!-- Banner  -->
   <div class="container-fluid bg-1">
-    <img src="./src/image/logo/main_logo_beg.png" alt="">
+    <img src="./src/image/logo/main_logo.png" class="rotation-img">
   </div>
 
   <!-- Visualization -->
