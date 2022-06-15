@@ -1,19 +1,19 @@
 var vis_list = [
     {
         name: '선택 정렬',
-        url: "#",
+        url: "./canvas/sort/selectionSort.html",
         imgPath: "./src/image/Visualization/sorting.png",
         tag: ['정렬', '배열']
     },
     {
         name: '이진 검색 트리',
-        url: "#",
+        url: "./canvas/BST/BST.html",
         imgPath: "./src/image/Visualization/bst.png",
         tag: ['트리']
     },
     {
         name: '단일 연결 리스트',
-        url: "#",
+        url: "./canvas/linkedlist/index.html",
         imgPath: "./src/image/Visualization/list.png",
         tag: ['연결 리스트']
     },
@@ -31,7 +31,7 @@ var vis_list = [
     },
     {
         name: '거품 정렬',
-        url: "#",
+        url: "./canvas/sort/bubbleSort.html",
         imgPath: "./src/image/Visualization/sorting.png",
         tag: ['정렬', '배열']
     },
@@ -43,7 +43,7 @@ var vis_list = [
     },
     {
         name: '삽입 정렬',
-        url: "#",
+        url: "./canvas/sort/insertionSort.html",
         imgPath: "./src/image/Visualization/sorting.png",
         tag: ['정렬', '배열']
     },
