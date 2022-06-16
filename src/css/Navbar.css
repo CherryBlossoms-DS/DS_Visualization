@@ -29,3 +29,7 @@
 .navbar {
     border-radius: 0;
 }
+
+.navbar-collapse {
+    background-color: #454444;
+}
